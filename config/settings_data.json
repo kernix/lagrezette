@@ -1,0 +1,1001 @@
+{
+  "current": {
+    "pluginseo_pageTitleTruncateChars": "999",
+    "pluginseo_pageTitleEnableAppender": true,
+    "pluginseo_pageTitleAppenderTemplate": "| %% shop.name %%",
+    "pluginseo_pageTitleAppenderTargetLength": "70",
+    "pluginseo_pageTitleTemplateApplyToAll": true,
+    "pluginseo_pageTitleDefaultTemplate": "%% page_title %%",
+    "pluginseo_pageTitleIndexTemplate": "",
+    "pluginseo_pageTitlePageTemplate": "%% page_title %%",
+    "pluginseo_pageTitleSearchTemplate": "Shop %% search.terms %% at %% shop.name %%",
+    "pluginseo_pageTitleProductTemplate": "%% product.title %%%% product.selected_variant.title || prepend_not_empty: ' ' %%",
+    "pluginseo_pageTitleCollectionTemplate": "Shop %% current_tags || join: ', ' || append_not_empty: ' ' %%%% collection.title || escape %% at %% shop.name %%",
+    "pluginseo_pageTitleCatalogTemplate": "Browse %% collection.products || map: 'collections' || map: 'title' || uniq || take: '5' || join: ', ' || escape || remove: 'Home page, ' || remove: 'home page, '  || remove: 'Home page' || remove: 'Home page'  %% at %% shop.name %%",
+    "pluginseo_pageTitleBlogTemplate": "%% shop.name %% %% blog.title %%%% blog.all_tags || take: '5' || join: ', ' || prepend_not_empty: ' blog: ' || append_not_empty: ' and more' %%",
+    "pluginseo_pageTitleArticleTemplate": "%% article.title %%%% article.tags || take: '3' || join: ', ' || prepend_not_empty: ' | ' || append_not_empty: ' and more' %% | %% shop.name %% %% blog.title %% blog",
+    "pluginseo_pageTitle404Template": "404: Page Not Found - %% shop.name %%",
+    "pluginseo_metaDescriptionTruncateChars": "170",
+    "pluginseo_metaDescriptionTemplateApplyToAll": true,
+    "pluginseo_metaDescriptionDefaultTemplate": "%% page_description %%",
+    "pluginseo_metaDescriptionIndexTemplate": "",
+    "pluginseo_metaDescriptionPageTemplate": "%% page.content || strip_newlines || strip_html || escape || append_not_empty: '.' %% Visit %% shop.name %%",
+    "pluginseo_metaDescriptionSearchTemplate": "Find %% search.terms || default: 'it' %% here%% search.results || map: 'title' || take: '3' || join: ', ' || prepend_not_empty: ' including ' || append_not_empty: ' and more' %% at %% shop.name %%",
+    "pluginseo_metaDescriptionProductTemplate": "%% product.description || strip_newlines || replace: '.,', ',' || strip_html || escape %%",
+    "pluginseo_metaDescriptionCollectionTemplate": "%% collection.all_tags || take: '3' || join: ', ' || prepend_not_empty: 'Shop ' || append_not_empty: ' and more ' %%%% collection.title || escape %% at %% shop.name %% %% collection.description || strip_html || strip_newlines || escape || strip %%",
+    "pluginseo_metaDescriptionCatalogTemplate": "Discover %% collection.products || map: 'title' || uniq || take: '3' || join: ', ' || escape %% and more.",
+    "pluginseo_metaDescriptionBlogTemplate": "%% blog.articles || map: 'title' || take: '3' || join: ', ' || prepend_not_empty: 'Read about ' || append_not_empty: ' and more on the '%%%% shop.name %% %% blog.title %% blog.",
+    "pluginseo_metaDescriptionArticleTemplate": "%% article.excerpt_or_content || strip_newlines || strip_html || escape %%%% article.tags || take: '6' || join: ', ' || prepend_not_empty: ' Read about ' || append_not_empty: ' and more' %% %% article.title %% on the %% shop.name %% %% blog.title %% blog",
+    "pluginseo_metaDescription404Template": "The page you requested can't be found, please visit %% shop.domain %% instead",
+    "pluginseo_structuredDataDisplayLogo": false,
+    "pluginseo_structuredDataSocialProfileLinks": "",
+    "pluginseo_structuredDataReviewApp": "autodetect",
+    "color_text": "#3a3a3a",
+    "color_body_text": "#333232",
+    "color_sale_text": "#f43057",
+    "color_button": "#f43057",
+    "color_button_text": "#ffffff",
+    "color_small_button_text_border": "#3a3a3a",
+    "color_text_field_text": "#000000",
+    "color_text_field_border": "#cccccc",
+    "color_text_field": "#ffffff",
+    "color_image_overlay_text": "#ffffff",
+    "color_image_overlay": "#3d0c16",
+    "image_overlay_opacity": 20,
+    "color_borders": "#ebebeb",
+    "color_body_bg": "#ffffff",
+    "type_header_font": "poppins_n6",
+    "type_header_base_size": 30,
+    "type_base_font": "neuzeit_office_n4",
+    "type_base_size": 14,
+    "predictive_search_enabled": true,
+    "predictive_search_show_vendor": true,
+    "predictive_search_show_price": true,
+    "share_image": "",
+    "share_facebook": true,
+    "share_twitter": true,
+    "share_pinterest": false,
+    "social_twitter_link": "",
+    "social_facebook_link": "https:\/\/www.facebook.com\/ChateauLagrezette",
+    "social_pinterest_link": "",
+    "social_instagram_link": "https:\/\/www.instagram.com\/chateaulagrezette\/",
+    "social_tumblr_link": "",
+    "social_snapchat_link": "",
+    "social_youtube_link": "",
+    "social_vimeo_link": "https:\/\/vimeo.com\/56773472",
+    "favicon": "shopify:\/\/shop_images\/favicon.png",
+    "enable_ajax": true,
+    "pt_show_refine": false,
+    "pt_show_collection_group": true,
+    "pt_show_clear": true,
+    "pt_show_view_all": true,
+    "pt_show_collection_count": true,
+    "pt_show_show_single_group": true,
+    "pt_scroll_filter_group": true,
+    "pt_show_inactive_filters": false,
+    "pt_force_dropdown": false,
+    "pt_hide_headers": false,
+    "pt_float_filters": "true",
+    "pt_refine_text": "Filtrer",
+    "pt_clear_text": "Effacer",
+    "pt_view_all_text": "Voir tout",
+    "pt_tags_text": "Tags",
+    "pt_sort_by_text": "Sort By",
+    "pt_collection_text": "Collection",
+    "pt_search_placeholder_text": "search...",
+    "pt_mobile_text": "Filter",
+    "pt_show_tags_group": false,
+    "pt_show_tags_grouped": false,
+    "pt_show_sort_by_group": false,
+    "pt_sort_position": "bottom",
+    "pt_sort_by_dropdown": false,
+    "pt_show_sort_by_checkboxes": false,
+    "pt_sort_manual_text": "Featured",
+    "pt_sort_price_asc_text": "Price: Low to High",
+    "pt_sort_price_desc_text": "Price: High to Low",
+    "pt_sort_title_asc_text": "A-Z",
+    "pt_sort_title_desc_text": "Z-A",
+    "pt_sort_created_asc_text": "Newest Last",
+    "pt_sort_created_desc_text": "Newest",
+    "pt_sort_best_selling_text": "Best Selling",
+    "color_pt_header_text": "#222",
+    "color_pt_header_border": "#ddd",
+    "color_pt_header_top_border": "rgba(0,0,0,0)",
+    "pt_header_size": 18,
+    "pt_header_font_override": false,
+    "pt_header_font": "work_sans_n6",
+    "pt_header_weight": "600",
+    "color_pt_links": "#222",
+    "color_pt_links_selected": "#333",
+    "color_pt_links_hover": "#444",
+    "color_pt_counts_color": "#888",
+    "pt_links_size": 14,
+    "pt_links_font_override": false,
+    "pt_links_font": "work_sans_n6",
+    "pt_links_weight": "300",
+    "pt_show_checkboxes": true,
+    "pt_checkbox_style": "0",
+    "pt_checkbox_swatch_style": "3",
+    "pt_checkbox_primary_color": "#888",
+    "pt_checkbox_secondary_color": "#444",
+    "pt_checkbox_size": 15,
+    "pt_checkbox_size_swatch": 25,
+    "pt_checkbox_checkbox_align": "middle",
+    "pt_color_swatch_type": "swatch",
+    "color_pt_clear_bg": "#eee",
+    "color_pt_clear_text": "#222",
+    "color_pt_clear_bg_hover": "#ddd",
+    "color_pt_clear_text_hover": "#222",
+    "color_pt_bg": "rgba(0,0,0,0)",
+    "color_pt_bg_border": "rgba(0,0,0,0)",
+    "pt_bg_padding": 0,
+    "pt_bg_radius": 3,
+    "pt_mobile_enable": true,
+    "pt_accordion_enable": false,
+    "pt_accordion_mode": "all",
+    "pt_mobile_color": "#222",
+    "pt_mobile_max_width": "767px",
+    "pt_mobile_vertical": 7,
+    "pt_mobile_text_vertical": 14,
+    "pt_mobile_font_override": false,
+    "pt_mobile_font": "work_sans_n6",
+    "pt_mobile_size": "",
+    "pt_mobile_hide_selected": false,
+    "color_pt_small_box_bg": "#ffffff",
+    "color_pt_small_box_bg_hover": "#00a5fd",
+    "color_pt_small_box_text_hover": "#ffffff",
+    "pt_small_box_radius": 3,
+    "pt_small_box_border": true,
+    "pt_small_box_shadow": true,
+    "pt_view_more_enable": false,
+    "pt_view_more_count": 10,
+    "pt_view_more_text": "View More...",
+    "pt_apply_button_enable": false,
+    "pt_apply_button_text": "Apply",
+    "pt_apply_button_color": "#0084ff",
+    "pt_apply_button_hover_color": "#0670cf",
+    "pt_apply_button_disabled_color": "#cccccc",
+    "pt_sticky_enable": false,
+    "pt_sticky_mode": "basic",
+    "pt_sticky_selector": ".filter-menu",
+    "pt_sticky_offset": "25px",
+    "pt_sticky_min_width": "767px",
+    "pt_ajax_enable": false,
+    "pt_ajax_selector": "#Collection",
+    "pt_ajax_script": ";",
+    "pt_show_only_on_collections": false,
+    "pt_clear_to_current_collection": false,
+    "pt_desktop_always_show_selected": true,
+    "pt_filter_padding": 6,
+    "pt_temporary_disable": false,
+    "checkout_header_image": "shopify:\/\/shop_images\/home.jpg",
+    "checkout_logo_image": "shopify:\/\/shop_images\/lagrezette-blanc.png",
+    "checkout_logo_position": "left",
+    "checkout_logo_size": "medium",
+    "checkout_body_background_image": "",
+    "checkout_body_background_color": "#fff",
+    "checkout_input_background_color_mode": "white",
+    "checkout_sidebar_background_image": "",
+    "checkout_sidebar_background_color": "#fafafa",
+    "checkout_heading_font": "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'",
+    "checkout_body_font": "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'",
+    "checkout_accent_color": "#681425",
+    "checkout_button_color": "#f43057",
+    "checkout_error_color": "#e32c2b",
+    "sections": {
+      "header": {
+        "type": "header",
+        "settings": {
+          "align_logo": "left",
+          "logo": "shopify:\/\/shop_images\/logo-chateau-lagrezette_2x_60f1e12f-3c0c-46c0-9ade-faf15b5cf284.png",
+          "logo_max_width": 160,
+          "main_linklist": "main-menu",
+          "message": true,
+          "home_page_only": false,
+          "message_text": "Notre service client est à votre écoute du lundi au vendredi au +33 06 52 20 94 37 ou par mail : serviceclient@lagrezette.fr",
+          "message_link": "mailto:serviceclient@lagrezette.fr",
+          "color_bg": "#a8213c",
+          "color_text": "#ffffff"
+        }
+      },
+      "feature-columns": {
+        "type": "feature-columns",
+        "blocks": {
+          "feature-columns-0": {
+            "type": "text_block",
+            "settings": {
+              "enable_image": true,
+              "image": "shopify:\/\/shop_images\/domaine_adp.jpg",
+              "title": "Alain Dominique Perrin",
+              "text": "<p>Avec le Ch&acirc;teau Lagr&eacute;zette, Alain Dominique Perrin marie id&eacute;alement ses deux passions : l&rsquo;amour du beau et la cr&eacute;ation de produits d&rsquo;exception. Anim&eacute; par une volont&eacute; hors du commun, il consacre infiniment de temps et d&rsquo;&eacute;nergie pour r&eacute;habiliter ce ch&acirc;teau tomb&eacute; dans l&rsquo;oubli, restaurer ses jardins et rendre vie &agrave; ses terres. Enfin, pour faire rena&icirc;tre la viticulture sur le domaine de Lagr&eacute;zette, il fait appel au grand &oelig;nologue Michel Rolland en 1988.<\/p>",
+              "button_label": "Itinéraire d'un esthète",
+              "button_link": "https:\/\/www.chateau-lagrezette.com\/fr\/le-domaine\/alain-dominique-perrin"
+            }
+          },
+          "feature-columns-1": {
+            "type": "text_block",
+            "settings": {
+              "enable_image": true,
+              "image": "shopify:\/\/shop_images\/domaine_cepage.jpg",
+              "title": "Le cépage  Malbec",
+              "text": "<p>Le malbec est cultiv&eacute; au Ch&acirc;teau Lagr&eacute;zette depuis le XV&egrave; si&egrave;cle. Mais au XIXe si&egrave;cle, une &eacute;pid&eacute;mie de phyllox&eacute;ra venue d&rsquo;Am&eacute;rique touche le territoire de Cahors. Partout on replante des c&eacute;pages am&eacute;ricains immunis&eacute;s contre le terrible puceron. Les vins deviennent alors durs et &eacute;pais&hellip; Tandis qu&rsquo;ailleurs on r&eacute;agit en replantant les anciens c&eacute;pages, la terre de Cahors s&rsquo;endort...<\/p>",
+              "button_label": "Retour aux origines",
+              "button_link": "https:\/\/www.chateau-lagrezette.com\/fr\/le-domaine\/le-cepage-malbec"
+            }
+          },
+          "feature-columns-2": {
+            "type": "text_block",
+            "settings": {
+              "enable_image": true,
+              "image": "shopify:\/\/shop_images\/domaine_cave.jpg",
+              "title": "Le Chai",
+              "text": "<p>Retir&eacute; loin du bruit et de toute vibration parasite, &agrave; l&rsquo;abri de la lumi&egrave;re du jour, du froid et de la chaleur, le chai du Ch&acirc;teau Lagr&eacute;zette offre un &eacute;crin id&eacute;al pour que le vin y mature en toute qui&eacute;tude.<br><br>Construit en 1992 et r&eacute;nov&eacute; en 2011, impressionnant de perfection, le chai poss&egrave;de des &eacute;quipements &agrave; la pointe du modernisme qui engendrent des pratiques de vinification id&eacute;ales pour faire &eacute;merger toute l&rsquo;&eacute;l&eacute;gance et le raffinement des vins dans le respect de l&rsquo;environnement.<\/p>",
+              "button_label": "Entre tradition et Modernisme",
+              "button_link": "https:\/\/www.chateau-lagrezette.com\/fr\/le-domaine\/la-cave"
+            }
+          }
+        },
+        "block_order": [
+          "feature-columns-0",
+          "feature-columns-1",
+          "feature-columns-2"
+        ],
+        "settings": {
+          "title": "Notre histoire",
+          "align_text": "left"
+        }
+      },
+      "collection": {
+        "type": "collection",
+        "settings": {
+          "title": "Nos offres spéciales",
+          "collection": "promotions",
+          "grid": 3,
+          "rows": 2,
+          "show_vendor": false,
+          "show_view_all": false
+        }
+      },
+      "quotes": {
+        "type": "quotes",
+        "blocks": {
+          "quotes-0": {
+            "type": "quote",
+            "settings": {
+              "quote": "<p>Ch&acirc;teau Lagr&eacute;zette : un vin pr&eacute;cieux et d&eacute;licat qui vous ravira de A &agrave; Z .<\/p>",
+              "author": "Alexandra (75)"
+            }
+          },
+          "quotes-1": {
+            "type": "quote",
+            "settings": {
+              "quote": "<p>Des vins au nez puissant et intense qui r&eacute;v&egrave;lent une grande vari&eacute;t&eacute; de fruit rouges ainsi qu&rsquo;un c&ocirc;t&eacute; floral typique de ce terroir.&nbsp;<\/p>",
+              "author": "Michel (40)"
+            }
+          },
+          "quotes-2": {
+            "type": "quote",
+            "settings": {
+              "quote": "<p>Amateur de ros&eacute; entre amis ou de grands vins avec des convives, vous trouverez toujours votre bonheur au sein de la cave Lagr&eacute;zette.<\/p>",
+              "author": "Elodie (34)"
+            }
+          }
+        },
+        "block_order": [
+          "quotes-0",
+          "quotes-1",
+          "quotes-2"
+        ],
+        "settings": {
+          "title": "Ce qu'ils en disent..."
+        }
+      },
+      "footer": {
+        "type": "footer",
+        "blocks": {
+          "footer-0": {
+            "type": "link_list",
+            "settings": {
+              "title": "",
+              "menu": "footer"
+            }
+          },
+          "1592405044291": {
+            "type": "link_list",
+            "settings": {
+              "title": "",
+              "menu": "mentions-legales"
+            }
+          },
+          "footer-1": {
+            "type": "newsletter",
+            "settings": {
+              "title": "Newsletter"
+            }
+          }
+        },
+        "block_order": [
+          "footer-0",
+          "1592405044291",
+          "footer-1"
+        ],
+        "settings": {
+          "textmajorite": "Interdiction de vente de boissons alcooliques aux mineurs de moins de 18 ans. L'abus d'alcool est dangereux pour la santé. A consommer avec modération.",
+          "image": "shopify:\/\/shop_images\/lagrezette-blanc.png",
+          "show_payment_icons": true,
+          "color_footer_bg": "#681425",
+          "color_footer_text": "#ffffff",
+          "show_locale_selector": true,
+          "show_currency_selector": false
+        }
+      },
+      "product-template": {
+        "type": "product-template",
+        "settings": {
+          "show_quantity_selector": true,
+          "show_variant_labels": true,
+          "show_vendor": true,
+          "enable_payment_button": true,
+          "show_share_buttons": true,
+          "media_size": "medium",
+          "enable_image_zoom": true,
+          "enable_video_looping": false
+        }
+      },
+      "product-recommendations": {
+        "type": "product-recommendations",
+        "settings": {
+          "show_product_recommendations": true,
+          "heading": "Vous pourriez aimer également",
+          "show_vendor": false
+        }
+      },
+      "collection-template": {
+        "type": "collection-template",
+        "settings": {
+          "layout": "grid",
+          "grid": 3,
+          "rows": 3,
+          "show_collection_image": true,
+          "show_vendor": true,
+          "sort_enable": true,
+          "tags_enable": true
+        }
+      },
+      "1591892807509": {
+        "type": "feature-columns",
+        "blocks": {
+          "1591892807509-0": {
+            "type": "text_block",
+            "settings": {
+              "enable_image": true,
+              "image": "shopify:\/\/shop_images\/news_12.jpg",
+              "title": "Les étoiles du guide Michelin",
+              "text": "<p>Une excellente nouvelle pour la rentr&eacute;e : <br>le Guide Hachette vient d&rsquo;annoncer la s&eacute;lection de ses vins pour l&rsquo;&eacute;dition 2020 et le Ch&acirc;teau Lagrezette vient de nouveau de recevoir trois belles distinctions...<\/p>",
+              "button_label": "Lire l'article",
+              "button_link": "shopify:\/\/blogs\/infos\/cuvee-marguerite-et-chateau-lagrezette-2016-les-etoiles-du-guide-hachette-2020"
+            }
+          },
+          "1591892807509-1": {
+            "type": "text_block",
+            "settings": {
+              "enable_image": true,
+              "image": "shopify:\/\/shop_images\/news_10.jpg",
+              "title": "Robert Parker",
+              "text": "<p>Le c&eacute;l&egrave;bre d&eacute;gustateur et critique &oelig;nologique&nbsp;Robert PARKER&nbsp;s&rsquo;est une fois de plus pench&eacute; sur notre travail.<br><em>&laquo; Tous les Crus d&rsquo;Alain-Dominique Perrin sont impressionnants pour la puret&eacute; de leurs fruits, leur &eacute;l&eacute;gance mais aussi pour leur structure. &raquo;<\/em><br>Il s&eacute;lectionne 6 vins et les note brillamment dans son &eacute;dition 2015...<\/p>",
+              "button_label": "Lire l'article",
+              "button_link": "shopify:\/\/blogs\/infos\/robert-parker"
+            }
+          },
+          "1591892807509-2": {
+            "type": "text_block",
+            "settings": {
+              "enable_image": true,
+              "image": "shopify:\/\/shop_images\/fete-des-meres.png",
+              "title": "Offre spéciale fête des mères",
+              "text": "<p>Achetez 5 articles<br>Obtenez 1&nbsp;article gratuit !<br>Date d'effet : aujourd'hui<\/p>",
+              "button_label": "",
+              "button_link": ""
+            }
+          }
+        },
+        "block_order": [
+          "1591892807509-0",
+          "1591892807509-1",
+          "1591892807509-2"
+        ],
+        "settings": {
+          "title": "Nos actualités",
+          "align_text": "left"
+        }
+      },
+      "1591893468649": {
+        "type": "collection",
+        "settings": {
+          "title": "Notre sélection du moment",
+          "collection": "selection-du-moment",
+          "grid": 4,
+          "rows": 2,
+          "show_vendor": false,
+          "show_view_all": false
+        }
+      },
+      "1591949580243": {
+        "type": "slideshow",
+        "blocks": {
+          "1592247869857": {
+            "type": "image",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/90419119_1488182514670613_463562632075411456_o.jpg",
+              "alignment": "center center",
+              "slide_title": "Envie d'une petite ballade autour du vin ?",
+              "subheading": "Vous pouvez désormais venir visiter notre domaine et déguster nos vins.",
+              "button_label": "Réservez",
+              "button_link": "shopify:\/\/blogs\/infos\/fetes-des-meres"
+            }
+          },
+          "1591949580243-0": {
+            "type": "image",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/fete-pere_a3f25abf-0327-4d62-9c65-30898082f8e0.jpg",
+              "alignment": "center center",
+              "slide_title": "Bonne fête papa !",
+              "subheading": "Découvrez toutes nos offres pour combler les papas.",
+              "button_label": "J'en profite",
+              "button_link": "shopify:\/\/products\/chateau-lagrezette"
+            }
+          },
+          "1591949580243-1": {
+            "type": "image",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/coffret-fete-mere.jpg",
+              "alignment": "left bottom",
+              "slide_title": "Coffret fête des mères",
+              "subheading": "",
+              "button_label": "Découvrir le coffret",
+              "button_link": "shopify:\/\/collections\/vins-roses-1"
+            }
+          }
+        },
+        "block_order": [
+          "1592247869857",
+          "1591949580243-0",
+          "1591949580243-1"
+        ],
+        "settings": {
+          "slideshow_height": "medium",
+          "text_size": "large",
+          "text_alignment": "left bottom",
+          "show_overlay": true,
+          "autorotate": true,
+          "autorotate_speed": 5
+        }
+      },
+      "article-template": {
+        "type": "article-template",
+        "settings": {
+          "blog_show_author": true,
+          "blog_show_date": true,
+          "show_share_buttons": true
+        }
+      },
+      "blog-template": {
+        "type": "blog-template",
+        "settings": {
+          "layout": "list",
+          "blog_show_author": true,
+          "blog_show_date": true
+        }
+      },
+      "1591969530951": {
+        "type": "video",
+        "settings": {
+          "image": "shopify:\/\/shop_images\/video-chateau-lagrezette.jpg",
+          "image_position": "center center",
+          "video_link": "https:\/\/www.youtube.com\/watch?v=NVuEDwyQ_us",
+          "show_overlay": false,
+          "style": "image_with_play",
+          "height": "medium",
+          "video_title": "En vidéo",
+          "text_size": "large"
+        }
+      },
+      "cart-template": {
+        "type": "cart-template",
+        "settings": {
+          "cart_ajax_enable": true,
+          "cart_notes_enable": true
+        }
+      },
+      "1592255992226": {
+        "type": "image-bar",
+        "blocks": {
+          "1592255992226-0": {
+            "type": "image",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/98285798_2654244698188532_5697618376952643584_o.jpg",
+              "alignment": "center",
+              "link": "",
+              "cta_label": ""
+            }
+          },
+          "1592255992226-1": {
+            "type": "image",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/98599512_2654244191521916_1296474275305226240_o.jpg",
+              "alignment": "center",
+              "link": "",
+              "cta_label": ""
+            }
+          },
+          "1592255992226-2": {
+            "type": "image",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/98605368_2654244314855237_5310221582507966464_o.jpg",
+              "alignment": "center",
+              "link": "",
+              "cta_label": ""
+            }
+          }
+        },
+        "block_order": [
+          "1592255992226-0",
+          "1592255992226-1",
+          "1592255992226-2"
+        ],
+        "settings": {
+          "section_height": "medium"
+        }
+      },
+      "list-collections-template": {
+        "type": "list-collections-template",
+        "settings": {
+          "display_type": "all",
+          "sort": "alphabetical",
+          "grid": 4
+        }
+      },
+      "1592396750699": {
+        "type": "feature-columns",
+        "blocks": {
+          "1592396750699-0": {
+            "type": "text_block",
+            "settings": {
+              "enable_image": true,
+              "image": "shopify:\/\/shop_images\/livraison-offerte-hp_ff324611-e068-4406-a642-4c28d0466252.png",
+              "title": "Livraison offerte",
+              "text": "<p>A partir de 390 &euro; d'achat<br>en <strong>France m&eacute;tropolitaine<\/strong><\/p>",
+              "button_label": "",
+              "button_link": ""
+            }
+          },
+          "1592396750699-1": {
+            "type": "text_block",
+            "settings": {
+              "enable_image": true,
+              "image": "shopify:\/\/shop_images\/conseil-personnalise.png",
+              "title": "Conseils personnalisés",
+              "text": "<p>Contactez-nous au <strong>+33 652 209 437<\/strong><br>du lundi au vendredi<\/p>",
+              "button_label": "",
+              "button_link": ""
+            }
+          },
+          "1592396750699-2": {
+            "type": "text_block",
+            "settings": {
+              "enable_image": true,
+              "image": "shopify:\/\/shop_images\/crus-exception-hp.png",
+              "title": "Crus d'exception",
+              "text": "<p>Des <strong>vins reconnus et r&eacute;compens&eacute;s<\/strong><br>par les meilleurs critiques<\/p>",
+              "button_label": "",
+              "button_link": ""
+            }
+          }
+        },
+        "block_order": [
+          "1592396750699-0",
+          "1592396750699-1",
+          "1592396750699-2"
+        ],
+        "settings": {
+          "title": "",
+          "align_text": "center"
+        }
+      }
+    },
+    "content_for_index": [
+      "1591949580243",
+      "1591893468649",
+      "1592396750699",
+      "feature-columns",
+      "1591969530951",
+      "collection",
+      "1591892807509",
+      "quotes",
+      "1592255992226"
+    ]
+  },
+  "presets": {
+    "Default": {
+      "sections": {
+        "header": {
+          "type": "header",
+          "settings": {}
+        },
+        "hero-1": {
+          "type": "hero",
+          "settings": {
+            "hero_size": "large",
+            "text_size": "large"
+          }
+        },
+        "feature-row": {
+          "type": "feature-row",
+          "settings": {}
+        },
+        "feature-columns": {
+          "type": "feature-columns",
+          "blocks": {
+            "feature-columns-0": {
+              "type": "text_block",
+              "settings": {}
+            },
+            "feature-columns-1": {
+              "type": "text_block",
+              "settings": {}
+            },
+            "feature-columns-2": {
+              "type": "text_block",
+              "settings": {}
+            }
+          },
+          "block_order": [
+            "feature-columns-0",
+            "feature-columns-1",
+            "feature-columns-2"
+          ],
+          "settings": {
+            "title": ""
+          }
+        },
+        "collection": {
+          "type": "collection",
+          "settings": {
+            "grid": 4
+          }
+        },
+        "hero-2": {
+          "type": "hero",
+          "settings": {
+            "text_size": "large"
+          }
+        },
+        "quotes": {
+          "type": "quotes",
+          "blocks": {
+            "quotes-0": {
+              "type": "quote",
+              "settings": {}
+            },
+            "quotes-1": {
+              "type": "quote",
+              "settings": {}
+            },
+            "quotes-2": {
+              "type": "quote",
+              "settings": {}
+            }
+          },
+          "block_order": [
+            "quotes-0",
+            "quotes-1",
+            "quotes-2"
+          ],
+          "settings": {
+            "title": ""
+          }
+        },
+        "image-bar": {
+          "type": "image-bar",
+          "blocks": {
+            "image-bar-0": {
+              "type": "image",
+              "settings": {}
+            },
+            "image-bar-1": {
+              "type": "image",
+              "settings": {}
+            },
+            "image-bar-2": {
+              "type": "image",
+              "settings": {}
+            }
+          },
+          "block_order": [
+            "image-bar-0",
+            "image-bar-1",
+            "image-bar-2"
+          ],
+          "settings": {}
+        },
+        "footer": {
+          "type": "footer",
+          "blocks": {
+            "footer-0": {
+              "type": "link_list",
+              "settings": {}
+            },
+            "footer-1": {
+              "type": "newsletter",
+              "settings": {}
+            }
+          },
+          "block_order": [
+            "footer-0",
+            "footer-1"
+          ],
+          "settings": {
+            "show_payment_icons": true
+          }
+        }
+      },
+      "content_for_index": [
+        "hero-1",
+        "feature-row",
+        "feature-columns",
+        "collection",
+        "hero-2",
+        "quotes",
+        "image-bar"
+      ]
+    },
+    "Light": {
+      "color_text": "#162950",
+      "color_body_text": "#6d6d6d",
+      "color_sale_text": "#DA2F0C",
+      "color_borders": "#e4e4e4",
+      "color_button": "#DA2F0C",
+      "color_button_text": "#ffffff",
+      "color_small_button_text_border": "#162950",
+      "color_text_field": "#ffffff",
+      "color_text_field_text": "#162950",
+      "color_text_field_border": "#909090",
+      "color_image_overlay_text": "#ffffff",
+      "color_image_overlay": "#3d3d3d",
+      "image_overlay_opacity": 40,
+      "color_body_bg": "#f8f8f8",
+      "type_header_font": "muli_n6",
+      "type_header_base_size": 26,
+      "type_base_font": "muli_n4",
+      "type_base_size": 18,
+      "share_facebook": true,
+      "share_twitter": true,
+      "share_pinterest": true,
+      "social_twitter_link": "",
+      "social_facebook_link": "",
+      "social_pinterest_link": "",
+      "social_instagram_link": "",
+      "social_tumblr_link": "",
+      "social_snapchat_link": "",
+      "social_youtube_link": "",
+      "social_vimeo_link": "",
+      "favicon": "",
+      "checkout_header_image": "",
+      "checkout_logo_image": "",
+      "checkout_logo_position": "left",
+      "checkout_logo_size": "small",
+      "checkout_body_background_image": "",
+      "checkout_body_background_color": "#ffffff",
+      "checkout_input_background_color_mode": "white",
+      "checkout_sidebar_background_image": "",
+      "checkout_sidebar_background_color": "#e8f3f6",
+      "checkout_heading_font": "Roboto",
+      "checkout_body_font": "Source Sans Pro",
+      "checkout_accent_color": "#1990c6",
+      "checkout_button_color": "#23314e",
+      "checkout_error_color": "#ff6d6d",
+      "sections": {
+        "header": {
+          "type": "header",
+          "settings": {
+            "align_logo": "left",
+            "logo": "",
+            "logo_max_width": 135,
+            "main_linklist": "main-menu",
+            "message": true,
+            "color_bg": "#162950",
+            "color_text": "#ffffff"
+          }
+        },
+        "hero": {
+          "type": "hero",
+          "settings": {
+            "alignment": "center",
+            "hero_size": "x-large",
+            "text_size": "large"
+          }
+        },
+        "slideshow": {
+          "type": "slideshow",
+          "blocks": {
+            "slideshow-0": {
+              "type": "image",
+              "settings": {
+                "image": "",
+                "alignment": "center center"
+              }
+            },
+            "1492095993817": {
+              "type": "image",
+              "settings": {
+                "image": "",
+                "alignment": "center"
+              }
+            }
+          },
+          "block_order": [
+            "slideshow-0",
+            "1492095993817"
+          ],
+          "settings": {
+            "slideshow_height": "medium",
+            "text_size": "medium",
+            "autorotate": false,
+            "autorotate_speed": 5
+          }
+        },
+        "featured-collections": {
+          "type": "collection",
+          "settings": {
+            "grid": 3,
+            "rows": 1,
+            "show_vendor": true,
+            "show_view_all": true
+          }
+        },
+        "product-template": {
+          "type": "product-template",
+          "settings": {
+            "show_quantity_selector": false,
+            "show_variant_labels": true,
+            "show_vendor": false,
+            "show_share_buttons": true,
+            "media_size": "medium",
+            "enable_image_zoom": true,
+            "enable_video_looping": false
+          }
+        },
+        "collection-template": {
+          "type": "collection-template",
+          "settings": {
+            "layout": "grid",
+            "grid": 2,
+            "rows": 2,
+            "show_collection_image": true,
+            "show_vendor": false,
+            "sort_enable": true,
+            "tags_enable": true
+          }
+        },
+        "1492033809691": {
+          "type": "map",
+          "settings": {}
+        },
+        "1492033877875": {
+          "type": "quotes",
+          "blocks": {
+            "1492033877875-0": {
+              "type": "quote",
+              "settings": {}
+            }
+          },
+          "block_order": [
+            "1492033877875-0"
+          ],
+          "settings": {}
+        },
+        "1492033924902": {
+          "type": "custom-content",
+          "blocks": {
+            "1492033924902-0": {
+              "type": "text",
+              "settings": {
+                "width": "100%",
+                "alignment": "center",
+                "align_text": "center"
+              }
+            }
+          },
+          "block_order": [
+            "1492033924902-0"
+          ],
+          "settings": {
+            "title": ""
+          }
+        },
+        "1492096252560": {
+          "type": "collection-list",
+          "blocks": {
+            "1492096252560-0": {
+              "type": "featured_collection",
+              "settings": {}
+            },
+            "1492096252560-1": {
+              "type": "featured_collection",
+              "settings": {}
+            },
+            "1492096252560-2": {
+              "type": "featured_collection",
+              "settings": {}
+            }
+          },
+          "block_order": [
+            "1492096252560-0",
+            "1492096252560-1",
+            "1492096252560-2"
+          ],
+          "settings": {
+            "grid": 3
+          }
+        },
+        "blog-template": {
+          "type": "blog-template",
+          "settings": {
+            "layout": "grid",
+            "blog_show_author": true,
+            "blog_show_date": false
+          }
+        },
+        "article-template": {
+          "type": "article-template",
+          "settings": {
+            "blog_show_author": true,
+            "blog_show_date": true,
+            "show_share_buttons": true
+          }
+        },
+        "cart-template": {
+          "type": "cart-template",
+          "settings": {
+            "cart_notes_enable": false
+          }
+        },
+        "footer": {
+          "type": "footer",
+          "blocks": {
+            "link_list": {
+              "type": "link_list",
+              "settings": {}
+            },
+            "text": {
+              "type": "text",
+              "settings": {}
+            },
+            "newsletter": {
+              "type": "newsletter",
+              "settings": {}
+            }
+          },
+          "block_order": [
+            "link_list",
+            "text",
+            "newsletter"
+          ],
+          "settings": {
+            "color_footer_bg": "#f8f8f8",
+            "color_footer_text": "#6d6d6d"
+          }
+        }
+      },
+      "content_for_index": [
+        "hero",
+        "featured-collections",
+        "slideshow",
+        "1492033924902",
+        "1492096252560",
+        "1492033877875",
+        "1492033809691"
+      ]
+    }
+  }
+}

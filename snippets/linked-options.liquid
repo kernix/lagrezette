@@ -1,0 +1,159 @@
+{% comment %}Kernix start{% endcomment %}
+<script>
+document.addEventListener("DOMContentLoaded", function(event) {
+	// extend Shopify in debut theme to handle double bind btw
+  	// the 2 possible product options dropdown
+	var Shopify = Shopify || {};
+
+    Shopify.optionsMap = {}; // store array of contenant with millesime as key
+    Shopify.optionsSecondMap = {}; // store array of millesime with contenant as key
+
+    Shopify.arrayIncludes = function (t, e) {
+      for (var o = 0; o < t.length; o++) {
+        if (t[o] == e) return !0;
+      }
+      return !1;
+    };
+
+    Shopify.uniq = function (t) {
+      for (var e = [], o = 0; o < t.length; o++) {
+        Shopify.arrayIncludes(e, t[o]) || e.push(t[o]);
+      }
+      return e;
+    };
+  
+  	Shopify.bindProductFirstSelect = function() {
+      jQuery(".single-option-selector:eq(0)").change(function() {
+        Shopify.updateOptionsInSelector(1);
+
+        return true;
+      });
+    };
+  
+  	Shopify.bindProductSecondSelect = function() {
+      jQuery(".single-option-selector:eq(1)").change(function() {
+        Shopify.updateOptionsInSelector(2);
+
+        return true;
+      });  
+    };
+
+    Shopify.updateOptionsInSelector = function(selectorIndex) {
+      switch (selectorIndex) {
+        case 0:
+          var key = 'root';
+          var selector = jQuery('.single-option-selector:eq(0)');
+          var availableOptions = Shopify.optionsMap[key];
+          break;
+        case 1:
+          var key = jQuery('.single-option-selector:eq(0)').val();
+          var selector = jQuery('.single-option-selector:eq(1)');
+          var availableOptions = Shopify.optionsMap[key];
+          break;
+        case 2:
+          var key = jQuery('.single-option-selector:eq(1)').val();
+          var selector = jQuery('.single-option-selector:eq(0)');
+          var availableOptions = Shopify.optionsSecondMap[key];
+          break;
+      }
+
+      var initialValue = selector.val();
+      selector.empty();
+      
+      for (var i=0; i<availableOptions.length; i++) {
+      	var option = availableOptions[i];
+        var newOption = jQuery('<option></option>').val(option).html(option);
+        selector.append(newOption);
+      }
+      
+      selector.find('option').each(function () {
+        var $this = jQuery(this);
+        var _value = $this.val();
+        if (jQuery.inArray(_value, availableOptions) !== -1) {
+          $this.removeAttr('disabled', 'disabled').html(_value);
+        } else {
+          $this.removeAttr('checked').attr('disabled', 'disabled');
+          selector.find('option:not(:disabled)').first().click();
+        }
+      });
+
+      if (selector.find(':checked').length < 1) {
+        selector.find('option:not(:disabled)').first().click();
+      }
+
+      jQuery('.swatch[data-option-index="' + selectorIndex + '"] .swatch-element').each(function() {
+        if (jQuery.inArray($(this).attr('data-value'), availableOptions) !== -1) {
+          $(this).removeClass('soldout').show().find(':radio').removeAttr('disabled','disabled').removeAttr('checked');
+        }
+        else {
+          $(this).addClass('soldout').hide().find(':radio').removeAttr('checked').attr('disabled','disabled');
+        }
+      });
+      if (jQuery.inArray(initialValue, availableOptions) !== -1) {
+        selector.val(initialValue);
+      }
+      //selector.trigger('change');  
+    };
+
+    Shopify.linkOptionSelectors = function(product) {
+      // Building our mapping object.
+      for (var i=0; i<product.variants.length; i++) {
+        var variant = product.variants[i];
+        if (variant.available) {
+          // for the first dropdown
+          Shopify.optionsMap['root'] = Shopify.optionsMap['root'] || [];
+          Shopify.optionsMap['root'].push(variant.option1);
+          Shopify.optionsMap['root'] = Shopify.uniq(Shopify.optionsMap['root']);
+          // Gathering values for the 2nd drop-down.
+          if (product.options.length > 1) {
+            var key = variant.option1;
+            Shopify.optionsMap[key] = Shopify.optionsMap[key] || [];
+            Shopify.optionsMap[key].push(variant.option2);
+            Shopify.optionsMap[key] = Shopify.uniq(Shopify.optionsMap[key]);
+          }
+          
+          // for the second dropdown
+          Shopify.optionsSecondMap['root'] = Shopify.optionsSecondMap['root'] || [];
+          Shopify.optionsSecondMap['root'].push(variant.option2);
+          Shopify.optionsSecondMap['root'] = Shopify.uniq(Shopify.optionsSecondMap['root']);
+          if (product.options.length > 1) {
+            var key = variant.option2;
+            Shopify.optionsSecondMap[key] = Shopify.optionsSecondMap[key] || [];
+            Shopify.optionsSecondMap[key].push(variant.option1);
+            Shopify.optionsSecondMap[key] = Shopify.uniq(Shopify.optionsSecondMap[key]);
+          }
+          
+        }
+      }
+      // Update options right away.
+      Shopify.updateOptionsInSelector(0);
+      if (product.options.length > 1) Shopify.updateOptionsInSelector(2);
+
+      // When there is an update in the first dropdown.
+      Shopify.bindProductFirstSelect();
+      // When there is an update in the second dropdown.
+      Shopify.bindProductSecondSelect();
+    };
+
+    var $addToCartForm = $('form[action="/cart/add"]');
+    var product        = $addToCartForm.length > 0 ? JSON.parse($addToCartForm.attr('data-product-json')) : false;
+
+    if (product && product.available && product.options.length > 1) {
+      if (window.MutationObserver && $addToCartForm.length) {
+        if (typeof observer === 'object' && typeof observer.disconnect === 'function') {
+          observer.disconnect();
+        }
+        var config = { childList: true, subtree: true };
+        var observer = new MutationObserver(function() {      
+          Shopify.linkOptionSelectors(product);
+          observer.disconnect();
+        });  
+        observer.observe($addToCartForm[0], config);
+      }
+
+      Shopify.linkOptionSelectors(product);
+    }
+
+});
+</script>
+{% comment %}Kernix end{% endcomment %}

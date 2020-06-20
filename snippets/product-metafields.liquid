@@ -1,0 +1,93 @@
+
+<div class="custom-attributes-wrapper"> 
+  {% if product.metafields.millesime and product.metafields.millesime.size > 0 %}
+
+      {% capture millesime_list %}{% for millesime in product.metafields.millesime.millesime %}{{ millesime }}{% if forloop.last == false %}::::{% endif %}{% endfor %}{% endcapture %}
+      {% assign millesime_collection = millesime_list | split: '::::' %}
+
+      {% capture millesime_degustation_list %}{% for millesime_degustation in product.metafields.millesime.degustation %}{{ millesime_degustation }}{% if forloop.last == false %}::::{% endif %}{% endfor %}{% endcapture %}
+      {% assign millesime_degustation_collection = millesime_degustation_list | split: '::::' %}
+
+      {% capture millesime_caracteristiques_list %}{% for millesime_caracteristiques in product.metafields.millesime.caracteristiques %}{{ millesime_caracteristiques }}{% if forloop.last == false %}::::{% endif %}{% endfor %}{% endcapture %}
+      {% assign millesime_rewards_html_collection = millesime_caracteristiques_list | split: '::::' %}
+
+      {% capture millesime_rewards_list %}{% for millesime_rewards in product.metafields.millesime.rewards %}{{ millesime_rewards }}{% if forloop.last == false %}::::{% endif %}{% endfor %}{% endcapture %}
+      {% assign millesime_rewards_collection = millesime_rewards_list | split: '::::' %}
+
+      {% comment %}Loop on all millesime to build tabs{% endcomment %}
+      {% for millesime in millesime_collection %}
+      <div class="millesime millesime-hidde millesime-{{ millesime }}">
+        <h5>{{ 'products.product.millesime' | t }} {{ millesime }}</h5>
+        <div class="millesime-col">
+          <div class="wysiwyg-content">
+            {% if millesime_degustation_collection[forloop.index0] %}
+            {{ millesime_degustation_collection[forloop.index0] }}
+            {% endif %}
+          </div>
+        </div>
+        <div class="millesime-col">
+          <div class="wysiwyg-content">
+            {% if millesime_rewards_html_collection[forloop.index0] %}
+            {{ millesime_rewards_html_collection[forloop.index0] }}
+            {% endif %}
+          </div>
+          <div class="millesime-rewards-logo">
+            {% if millesime_rewards_collection[forloop.index0] %}
+            {% assign millesime_rewards = millesime_rewards_collection[forloop.index0] | split: '|' %}	
+            {% for reward in millesime_rewards %}
+            {% capture "logo_filename" -%}
+            Logo_{{ reward }}.jpg
+            {%- endcapture %}
+            <div class="logo-wrapper">
+              <img src="{{ logo_filename | asset_url }}" alt="Label {{ attribute_value }}">
+            </div>
+            {% endfor %}
+
+            {% endif %}
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+
+  {% endif %}
+  {% if product.metafields.producttab %}
+  <div class="millesime-general">
+    <h5>{{ 'products.product.details' | t }} {{ millesime }}</h5>
+    {% if product.metafields.producttab.mets_description != blank %}
+    <div class="millesime-col">
+      <div class="wysiwyg-content">
+        {{ product.metafields.producttab.mets_description }}
+      </div>
+    </div>
+    {% endif %}
+    {% if product.metafields.producttab.vinification_description != blank %}
+    <div class="millesime-col">
+      <div class="wysiwyg-content">
+        {{ product.metafields.producttab.vinification_description }}
+      </div>
+    </div>
+    {% endif %}
+  </div>
+  {% endif %}
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function(event) {
+  
+  if ($('.single-option-selector:eq(0)') && $('.single-option-selector:eq(0) option:selected')) {
+    let selectedMillesimeValue = $('.single-option-selector:eq(0) option:selected').text();
+    let ctnClass = '.millesime-' + selectedMillesimeValue;
+    if ($(ctnClass)) {
+      $(ctnClass).fadeIn('slow');
+    }
+  }
+
+  $('.single-option-selector:eq(0)').on('change', function() {
+    if (this.value) {
+      $('.millesime').hide();
+      let ctnClass = '.millesime-' + this.value;
+      $(ctnClass).fadeIn('slow');
+    }
+  });
+});
+</script>

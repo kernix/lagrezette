@@ -1,0 +1,212 @@
+
+{% if collection.products.size > 0 %}
+  
+{% endif %}
+
+
+{% if section.settings.tags_enable %}
+  {% unless collection.all_tags.size == 0 %}
+
+  {% assign has_millesime = '0' %}
+  {% assign has_terroir = '0' %}
+  {% assign has_container = '0' %}
+
+  {% for tag in collection.all_tags %}
+    {% if tag contains "millesime-" %}
+      {% assign has_millesime = '1' %}
+    {% endif %}
+    {% if tag contains "terroir-" %}
+      {% assign has_terroir = '1' %}
+    {% endif %}
+	{% if tag contains "contenant-" %}
+      {% assign has_container = '1' %}
+    {% endif %}
+  {% endfor %}
+
+  {% if has_millesime == '1' or has_container == '1' or has_terroir  == '1' %}
+	<div class="collection-filtre-col">
+      <h5>{{ 'collections.filters.title_tags' | t }}</h5>
+
+
+      {% if has_millesime == '1' %}
+        <div class="collection-filtre-wrapper">
+          <label class="collection-filtre-label" for="filtre-millesime">{{ 'products.product.millesime' | t }}</label>
+          <select class="collection-filtre" id="filtre-millesime">
+            <option value="">{{ 'products.product.all_millesimes' | t }}</option>
+            {% for tag in collection.all_tags %}
+            {% if tag contains "millesime-" %}
+            <option value="{{ tag | handle }}"{% if current_tags contains tag %} selected="selected"{% endif %}>{{ tag | replace: 'millesime-', '' }}</option>
+            {% endif %}
+            {% endfor %}
+          </select>
+        </div>
+      {% endif %}
+
+      {% if has_terroir  == '1' %}
+        <div class="collection-filtre-wrapper" id="filtre-terroir-wrapper">
+          <label class="collection-filtre-label" for="filtre-terroir">{{ 'products.product.terroir' | t }}</label>
+          <select class="collection-filtre" id="filtre-terroir">
+            <option value="">{{ 'products.product.all_terroirs' | t }}</option>
+            {% for tag in collection.all_tags %}
+              {% if tag contains "terroir-" %}
+              <option value="{{ tag | handle }}"{% if current_tags contains tag %} selected="selected"{% endif %}>{{ tag | replace: 'terroir-', '' | capitalize }}</option>
+              {% endif %}
+            {% endfor %}
+          </select>
+        </div>
+      {% endif %}
+
+      {% if has_container == '1' %}
+        <div class="collection-filtre-wrapper">
+          <label class="collection-filtre-label" for="filtre-contenant">{{ 'products.product.contenant' | t }}</label>
+          <select class="collection-filtre" id="filtre-contenant">
+            <option value="">{{ 'products.product.all_contenants' | t }}</option>
+            {% for tag in collection.all_tags %}
+              {% if tag contains "contenant-" %}
+              <option value="{{ tag | handle }}"{% if current_tags contains tag %} selected="selected"{% endif %}>{{ tag | replace: 'contenant-', '' | replace: '-', ' ' | replace: '_', '.' | capitalize }}</option>
+              {% endif %}
+            {% endfor %}
+          </select>
+        </div>
+      {% endif %}
+      
+	</div>
+
+
+
+  		<script>
+        document.addEventListener("DOMContentLoaded", function(event) {
+          let KnxCollectionFilter = {
+            'selector': {
+              'general': '.collection-filtre',
+              'terroir': '#filtre-terroir-wrapper',
+            },
+            'currentTags': {{ current_tags | json }},
+            'excludeTerroir': [200802369687, 200803352727, 200803614871]
+          };
+            
+          KnxCollectionFilter.firstTag = KnxCollectionFilter.currentTags && KnxCollectionFilter.currentTags[0] ? KnxCollectionFilter.currentTags[0] : '';
+          KnxCollectionFilter.secondTag = KnxCollectionFilter.currentTags && KnxCollectionFilter.currentTags[1] ? KnxCollectionFilter.currentTags[1] : '';
+          KnxCollectionFilter.thirdTag = KnxCollectionFilter.currentTags && KnxCollectionFilter.currentTags[2] ? KnxCollectionFilter.currentTags[2] : '';
+          KnxCollectionFilter.products = {{ collection.products | json }};
+          
+          KnxCollectionFilter.arrayIncludes = function (t, e) {
+            for (var o = 0; o < t.length; o++) {
+              if (t[o] == e) return 1;
+            }
+            return 0;
+          };
+
+          KnxCollectionFilter.replaceAll = function (str, find, replace) {
+            return str.split(find).join(replace);
+          };
+          
+          KnxCollectionFilter.tagToOption = function (t) {
+            // replace tag value to match products options
+            let option = '';
+            
+            // for french langage
+            option = t.replace('millesime-', '');
+            option = option.replace('terroir-', '');
+            option = option.replace('contenant-', '');
+            
+            option = KnxCollectionFilter.replaceAll(option, '-', ' ');
+            option = KnxCollectionFilter.replaceAll(option, '_', '.');
+            
+            // @TODO make english translation works
+            
+            return option;
+          };
+          
+          KnxCollectionFilter.checkTagOrVendor = function (t, f, e) {
+            let vendorToTag = e.vendor ? e.vendor.toLowerCase().replace('terroir ', '') : '';
+            let tag = KnxCollectionFilter.tagToOption(t);
+            console.log(t, tag);
+            
+            // check if a tag is included in product options or in vendor
+            return f.options.includes(tag) || vendorToTag && tag == vendorToTag;
+          };
+          
+          KnxCollectionFilter.hasTag = function (t) {
+            let elementFound = 0;
+            jQuery.each(KnxCollectionFilter.products, function(i, e) {
+              if (KnxCollectionFilter.currentTags && e.variants) {
+                
+                jQuery.each(e.variants, function(j, f) {
+                  if (KnxCollectionFilter.thirdTag) {
+                    // check for 3 tags
+                  	if (KnxCollectionFilter.checkTagOrVendor(t, f, e) && 
+                        KnxCollectionFilter.checkTagOrVendor(KnxCollectionFilter.firstTag, f, e) &&
+                        KnxCollectionFilter.checkTagOrVendor(KnxCollectionFilter.secondTag, f, e) &&
+                        KnxCollectionFilter.checkTagOrVendor(KnxCollectionFilter.thirdTag, f, e)) elementFound = 1;
+                  } else if (KnxCollectionFilter.secondTag) {
+                    // check for 2 tags
+                  	if (KnxCollectionFilter.checkTagOrVendor(t, f, e) && 
+                        KnxCollectionFilter.checkTagOrVendor(KnxCollectionFilter.secondTag, f, e)) elementFound = 1;
+                  } else if (KnxCollectionFilter.firstTag) {
+                    // check for 1 tag
+                  	if (KnxCollectionFilter.checkTagOrVendor(t, f, e) && 
+                        KnxCollectionFilter.checkTagOrVendor(KnxCollectionFilter.firstTag, f, e)) elementFound = 1;
+                  }                  
+                });
+                
+              } else {
+                elementFound = 1;
+              }
+            });
+            
+            return elementFound;
+          };
+          
+          KnxCollectionFilter.filterList = function () {
+            //console.log({{ collection.id |json }});
+            // on page load, filter all select values depending on variants exists test
+            let selector = jQuery(KnxCollectionFilter.selector.general);
+            selector.find('option').each(function () {
+              let $this = jQuery(this);
+              let _value = $this.val();
+              if ($this.val() && 0 == KnxCollectionFilter.hasTag(_value)) $this.removeAttr('checked').attr('disabled','disabled');
+            });
+            
+            // remove terroir selector on terroir collection :)
+            if (KnxCollectionFilter.arrayIncludes(KnxCollectionFilter.excludeTerroir, {{ collection.id }})) {
+                jQuery(KnxCollectionFilter.selector.terroir).hide();
+            }
+          };
+          
+          // on change handler for the 3 select in filter list
+          let collFilters = jQuery(KnxCollectionFilter.selector.general);
+          collFilters.change(function() {
+            let newTags = [];
+            if (jQuery(this).val()) {
+              KnxCollectionFilter.hasTag(jQuery(this).val());
+            }
+            
+            collFilters.each(function() {
+              if (jQuery(this).val()) {
+                newTags.push(jQuery(this).val());
+              }
+            });
+            if (newTags.length) {
+              let query = newTags.join('+');
+              window.location.href = jQuery('{{ 'tag' | link_to_tag: 'tag' }}').attr('href').replace('/' + 'tag', '/' + query);
+            }
+            else {
+              {% if collection.handle %}
+              window.location.href = '/collections/{{ collection.handle }}';
+              {% elsif collection.products.first.type == collection.title %}
+              window.location.href = '{{ collection.title | url_for_type }}';
+              {% elsif collection.products.first.vendor == collection.title %}
+              window.location.href = '{{ collection.title | url_for_vendor }}';
+              {% endif %}
+            }
+          });
+             
+          KnxCollectionFilter.filterList();
+          
+        });
+        </script>
+	{% endif %}
+
+  {% endunless %}
+{% endif %}
