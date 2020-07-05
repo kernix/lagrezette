@@ -258,6 +258,28 @@
     </div>
     {% include "product-metafields" %}
     <div id="shopify-product-reviews" data-id="{{product.id}}">{{ product.metafields.spr.reviews }}</div>
+    <script>
+    document.addEventListener("DOMContentLoaded", function(event) {
+      // wait untill review are loaded
+      var checkReviewExist = setInterval(function() {
+        if ($('.spr-container').length) {
+          clearInterval(checkReviewExist);
+          $('.spr-header-title').text("{{ 'products.product.reviews.headline' | t }}");
+          $('.spr-summary-actions-newreview').text("{{ 'products.product.reviews.share_with_us' | t }}");
+          $('.spr-summary-caption').text("{{ 'products.product.reviews.no_review' | t }}");
+		  $('.spr-form-title').text("{{ 'products.product.reviews.write_review' | t }}");
+		  $('.spr-form-contact-name > .spr-form-label').text("{{ 'products.product.reviews.name' | t }}");
+		  $('.spr-form-contact-name > .spr-form-input').attr("placeholder", "{{ 'products.product.reviews.name_placeholder' | t }}");
+          $('.spr-form-review-title > .spr-form-label').text("{{ 'products.product.reviews.title' | t }}");
+          $('.spr-form-review-title > .spr-form-input').attr("placeholder", "{{ 'products.product.reviews.title_placeholder' | t }}");
+          $('.spr-form-review-body > .spr-form-label').text("{{ 'products.product.reviews.body' | t }}");
+          $('.spr-form-review-body .spr-form-input-textarea').attr("placeholder", "{{ 'products.product.reviews.body_placeholder' | t }}");
+        }
+      }, 300);
+
+    });
+    </script>
+    
   </div>
 </div>
 

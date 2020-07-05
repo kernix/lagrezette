@@ -56,11 +56,11 @@
     <dd>
       <span class="price-item price-item--regular">
         {%- if cheapest_variant and cheapest_variant.unit_price -%}
-        	{{ 'products.product.from_lowest_price_html' | t: lowest_price: '' }} {{ cheapest_variant.unit_price | money }}<br/>
-        	{{ 'products.product.for_a_bottle_of' | t }} {{ cheapest_variant.unit_price_measurement.reference_value }}{{ cheapest_variant.unit_price_measurement.reference_unit }}
+        	{{ cheapest_variant.unit_price | money }} {{ 'products.product.for_a_bottle_of' | t }}<br/>
+        	{{ cheapest_variant.price | money }} {{ cheapest_variant.option2 }}
         {%- else -%}
           {%- if product.price_varies -%}
-            {{ 'products.product.from_lowest_price_html' | t: lowest_price: money_price }}<br/>
+            {{ lowest_price | money }} {{ 'products.product.for_a_bottle_of' | t }}<br/>
           {%- else -%}
             {{ money_price }}
           {%- endif -%}
@@ -75,20 +75,35 @@
     <dd>
       <span class="price-item price-item--sale">
         {%- if product.price_varies -%}
-          {{ 'products.product.from_lowest_price_html' | t: lowest_price: money_price }}
-          {%- if cheapest_variant and cheapest_variant.unit_price -%}
-        	<br/>
-        	{{ 'products.product.for_a_bottle_of' | t }} {{ cheapest_variant.unit_price_measurement.reference_value }}{{ cheapest_variant.unit_price_measurement.reference_unit }}
-          {%- endif -%}
+        
+            
+            {%- if cheapest_variant and cheapest_variant.unit_price -%}
+                {{ cheapest_variant.unit_price | money }} {{ 'products.product.for_a_bottle_of' | t }}
+                <br/>
+              	{{ cheapest_variant.price | money }} <del>{{ cheapest_variant.compare_at_price | money }}</del> {{ cheapest_variant.option2 }}
+            {%- else -%}
+        		{{ lowest_price | money }} {{ 'products.product.for_a_bottle_of' | t }}
+				<br/>
+        	  	{{ lowest_price | money }} <del>{{ variant.compare_at_price | money }}</del> {{ variant.option2 }}
+            {%- endif -%}
+        
+        
         {%- else -%}
-          {{ money_price }}
-          {%- if cheapest_variant and cheapest_variant.unit_price -%}
-        	<br/>
-        	{{ 'products.product.for_a_bottle_of' | t }} {{ cheapest_variant.unit_price_measurement.reference_value }}{{ cheapest_variant.unit_price_measurement.reference_unit }}
-          {%- endif -%}
+        
+		  	{%- if cheapest_variant and cheapest_variant.unit_price -%}
+              {{ cheapest_variant.unit_price | money }} {{ 'products.product.for_a_bottle_of' | t }}
+              <br/>
+              {{ cheapest_variant.price | money }} <del>{{ cheapest_variant.compare_at_price | money }}</del> {{ cheapest_variant.option2 }}
+        	{%- else -%}
+        	  {{ money_price | money }} {{ 'products.product.for_a_bottle_of' | t }}
+              <br/>
+        	  {{ variant.price | money }} <del>{{ variant.compare_at_price | money }}</del> {{ variant.option2 }}
+        	{%- endif -%}
+        
         {%- endif -%}
       </span>
     </dd>
+    {%- comment -%}
     {%- if product.price_varies -%}{%- else -%}
     <div class="price__compare">
       <dt>
@@ -101,6 +116,7 @@
       </dd>
     </div>
     {%- endif -%}
+    {%- endcomment -%}
   </div>
   {%- comment -%}
   <div class="price__unit">

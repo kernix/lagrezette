@@ -256,7 +256,20 @@
   </nav>
   {% endif %}
 </div>
-
+<style>
+  #shopify-section-header { position: fixed; left: 0; top: 0; right: 0; z-index:1; }
+</style>
+<script>
+  document.addEventListener("DOMContentLoaded", function(event) {
+  	var headerH = $('#shopify-section-header').height();
+    $('body').css('padding-top', headerH+'px');
+    $(window).resize(function(){
+      headerH = $('#shopify-section-header').height();
+      $('body').css('padding-top', headerH+'px');
+    });
+  });
+  
+</script>
 
 
 <script type="application/ld+json">

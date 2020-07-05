@@ -1,78 +1,136 @@
+<div class="custom-attributes-wrapper">  
+  
+  
+  <div class="tabs">
+    <ul class="tabs-nav">
+      {% if product.metafields.millesime and product.metafields.millesime.size > 0 %}
+      	{% capture millesime_list %}{% for millesime in product.metafields.millesime.millesime %}{{ millesime }}{% if forloop.last == false %}::::{% endif %}{% endfor %}{% endcapture %}
+      	{% assign millesime_collection = millesime_list | split: '::::' %}
+        {% for millesime in millesime_collection %}
+          <li class="tab-{{ millesime }}"><a href="#tab-{{ millesime }}">{{ 'products.product.millesime' | t }} {{ millesime }}</a></li>
+        {% endfor %}
+      {% endif %}
+      {% if product.metafields.producttab %}
+        <li class="tab-detail"><a href="#tab-detail">{{ 'products.product.details' | t }} {{ millesime }}</a></li>
+      {% endif %}
+    </ul>
+    <div class="tabs-stage">
+      {% if product.metafields.millesime and product.metafields.millesime.size > 0 %}
 
-<div class="custom-attributes-wrapper"> 
-  {% if product.metafields.millesime and product.metafields.millesime.size > 0 %}
+          {% capture millesime_list %}{% for millesime in product.metafields.millesime.millesime %}{{ millesime }}{% if forloop.last == false %}::::{% endif %}{% endfor %}{% endcapture %}
+          {% assign millesime_collection = millesime_list | split: '::::' %}
 
-      {% capture millesime_list %}{% for millesime in product.metafields.millesime.millesime %}{{ millesime }}{% if forloop.last == false %}::::{% endif %}{% endfor %}{% endcapture %}
-      {% assign millesime_collection = millesime_list | split: '::::' %}
+          {% capture millesime_degustation_list %}{% for millesime_degustation in product.metafields.millesime.degustation %}{{ millesime_degustation }}{% if forloop.last == false %}::::{% endif %}{% endfor %}{% endcapture %}
+          {% assign millesime_degustation_collection = millesime_degustation_list | split: '::::' %}
 
-      {% capture millesime_degustation_list %}{% for millesime_degustation in product.metafields.millesime.degustation %}{{ millesime_degustation }}{% if forloop.last == false %}::::{% endif %}{% endfor %}{% endcapture %}
-      {% assign millesime_degustation_collection = millesime_degustation_list | split: '::::' %}
+          {% capture millesime_caracteristiques_list %}{% for millesime_caracteristiques in product.metafields.millesime.caracteristiques %}{{ millesime_caracteristiques }}{% if forloop.last == false %}::::{% endif %}{% endfor %}{% endcapture %}
+          {% assign millesime_rewards_html_collection = millesime_caracteristiques_list | split: '::::' %}
 
-      {% capture millesime_caracteristiques_list %}{% for millesime_caracteristiques in product.metafields.millesime.caracteristiques %}{{ millesime_caracteristiques }}{% if forloop.last == false %}::::{% endif %}{% endfor %}{% endcapture %}
-      {% assign millesime_rewards_html_collection = millesime_caracteristiques_list | split: '::::' %}
+          {% capture millesime_rewards_list %}{% for millesime_rewards in product.metafields.millesime.rewards %}{{ millesime_rewards }}{% if forloop.last == false %}::::{% endif %}{% endfor %}{% endcapture %}
+          {% assign millesime_rewards_collection = millesime_rewards_list | split: '::::' %}
 
-      {% capture millesime_rewards_list %}{% for millesime_rewards in product.metafields.millesime.rewards %}{{ millesime_rewards }}{% if forloop.last == false %}::::{% endif %}{% endfor %}{% endcapture %}
-      {% assign millesime_rewards_collection = millesime_rewards_list | split: '::::' %}
-
-      {% comment %}Loop on all millesime to build tabs{% endcomment %}
-      {% for millesime in millesime_collection %}
-      <div class="millesime millesime-hidde millesime-{{ millesime }}">
-        <h5>{{ 'products.product.millesime' | t }} {{ millesime }}</h5>
-        <div class="millesime-col">
-          <div class="wysiwyg-content">
-            {% if millesime_degustation_collection[forloop.index0] %}
-            {{ millesime_degustation_collection[forloop.index0] }}
-            {% endif %}
-          </div>
-        </div>
-        <div class="millesime-col">
-          <div class="wysiwyg-content">
-            {% if millesime_rewards_html_collection[forloop.index0] %}
-            {{ millesime_rewards_html_collection[forloop.index0] }}
-            {% endif %}
-          </div>
-          <div class="millesime-rewards-logo">
-            {% if millesime_rewards_collection[forloop.index0] %}
-            {% assign millesime_rewards = millesime_rewards_collection[forloop.index0] | split: '|' %}	
-            {% for reward in millesime_rewards %}
-            {% capture "logo_filename" -%}
-            Logo_{{ reward }}.jpg
-            {%- endcapture %}
-            <div class="logo-wrapper">
-              <img src="{{ logo_filename | asset_url }}" alt="Label {{ attribute_value }}">
+          {% comment %}Loop on all millesime to build tabs{% endcomment %}
+          {% for millesime in millesime_collection %}
+          <div id="tab-{{ millesime }}" class="millesime millesime-hidde millesime-{{ millesime }}">
+            <h5 style="display:none;">{{ 'products.product.millesime' | t }} {{ millesime }}</h5>
+            <div class="millesime-col">
+              <div class="wysiwyg-content">
+                {% if millesime_degustation_collection[forloop.index0] %}
+                {{ millesime_degustation_collection[forloop.index0] }}
+                {% endif %}
+              </div>
             </div>
-            {% endfor %}
+            <div class="millesime-col">
+              <div class="wysiwyg-content">
+                {% if millesime_rewards_html_collection[forloop.index0] %}
+                {{ millesime_rewards_html_collection[forloop.index0] }}
+                {% endif %}
+              </div>
+              <div class="millesime-rewards-logo">
+                {% if millesime_rewards_collection[forloop.index0] %}
+                  {% assign millesime_rewards = millesime_rewards_collection[forloop.index0] | split: '|' %}	
+                  {% for reward in millesime_rewards %}
+                      {% assign millesime_logo = '' %}	
+                      {% for check_reward in shop.metafields.knxlabel.title %}
+                      	{% if check_reward ==  reward %}
+                			{% assign millesime_logo = shop.metafields.knxlabel.logo[forloop.index0] %}	
+                		{% endif %}
+                      {% endfor %}
+                      <div class="logo-wrapper">
+                        <img src="{{ millesime_logo }}" alt="Label {{ attribute_value }}">
+                      </div>
+                  {% endfor %}
 
-            {% endif %}
+                {% endif %}
+              </div>
+            </div>
           </div>
+          {% endfor %}
+
+      {% endif %}
+      {% if product.metafields.producttab %}
+        <div id="tab-detail" class="millesime-general">
+          <h5 style="display:none;">{{ 'products.product.details' | t }} {{ millesime }}</h5>
+          {% if product.metafields.producttab.mets_description != blank %}
+          <div class="millesime-col">
+            <div class="wysiwyg-content">
+              {{ product.metafields.producttab.mets_description }}
+            </div>
+          </div>
+          {% endif %}
+          {% if product.metafields.producttab.vinification_description != blank %}
+          <div class="millesime-col">
+            <div class="wysiwyg-content">
+              {{ product.metafields.producttab.vinification_description }}
+            </div>
+          </div>
+          {% endif %}
         </div>
-      </div>
-      {% endfor %}
-
-  {% endif %}
-  {% if product.metafields.producttab %}
-  <div class="millesime-general">
-    <h5>{{ 'products.product.details' | t }} {{ millesime }}</h5>
-    {% if product.metafields.producttab.mets_description != blank %}
-    <div class="millesime-col">
-      <div class="wysiwyg-content">
-        {{ product.metafields.producttab.mets_description }}
-      </div>
+      {% endif %}
     </div>
-    {% endif %}
-    {% if product.metafields.producttab.vinification_description != blank %}
-    <div class="millesime-col">
-      <div class="wysiwyg-content">
-        {{ product.metafields.producttab.vinification_description }}
-      </div>
-    </div>
-    {% endif %}
   </div>
-  {% endif %}
+  
+  
 </div>
-
+<style>
+  .tabs { margin-top: 20px; margin-bottom: 20px; }
+  .tabs-nav { display:flex; border-bottom:1px solid #b3b3b3; margin-bottom: 10px; }
+  .tabs-nav>li a { display:block; color: #b3b3b3; font-weight: bold; font-size: 18px; padding: 8px 20px; background: transparent; }
+  .tabs-nav>li a:active { background: transparent; }
+  .tabs-nav>li a:focus { outline:none; }
+  .tabs-nav>li.tab-active a { position:relative; border-top:1px solid #b3b3b3; border-right:1px solid #b3b3b3; border-left:1px solid #b3b3b3; border-top-left-radius:5px; border-top-right-radius:5px; color: black; }
+  .tabs-nav>li.tab-active a::before { content:''; position:absolute; left:0; bottom:-1px; right:0; height:2px; background-color:white; }
+  
+  .tabs-stage>div { padding: 0 20px; }
+  
+  .millesime-col {}
+  .millesime-col ul { list-style-type: disc; }
+  @media only screen and (max-width: 480px){
+    .tabs-nav { padding: 0 10px; }
+    .tabs-nav>li a { font-size: 14px; }
+  }
+  @media only screen and (max-width: 749px){
+    .grid { margin-left: 0; }
+    .grid-item,.grid__item { padding-left: 0;}
+  }
+  
+</style>
 <script>
 document.addEventListener("DOMContentLoaded", function(event) {
+  
+  // Show the first tab by default
+  $('.tabs-stage>div').hide();
+  //$('.tabs-stage>div:first').show();
+  //$('.tabs-nav li:first').addClass('tab-active');
+
+  // Change tab class and display content
+  $('.tabs-nav a').on('click', function(event){
+    event.preventDefault();
+    $('.tabs-nav li').removeClass('tab-active');
+    $(this).parent().addClass('tab-active');
+    $('.tabs-stage>div').hide();
+    $($(this).attr('href')).show();
+  });
   
   if ($('.single-option-selector:eq(0)') && $('.single-option-selector:eq(0) option:selected')) {
     let selectedMillesimeValue = $('.single-option-selector:eq(0) option:selected').text();
@@ -80,14 +138,36 @@ document.addEventListener("DOMContentLoaded", function(event) {
     if ($(ctnClass)) {
       $(ctnClass).fadeIn('slow');
     }
+    $('.tabs-nav li').removeClass('tab-active').hide();
+    $('.tabs-stage>div').hide();
+    if( $('.tabs-nav>.tab-'+selectedMillesimeValue).length > 0 ){
+      $('.tabs-nav>.tab-'+selectedMillesimeValue).show().addClass('tab-active');
+      $('.tabs-stage>#tab-'+selectedMillesimeValue).show();
+    }else {
+      $('.tabs-nav>.tab-detail').show().addClass('tab-active');
+      $('.tabs-stage>#tab-detail').show();
+    }
+    $('.tabs-nav>.tab-detail').show();
   }
 
   $('.single-option-selector:eq(0)').on('change', function() {
     if (this.value) {
+      $('.tabs-nav li').removeClass('tab-active').hide();
+      $('.tabs-stage>div').hide();
+      if ( $('.tabs-stage>#tab-'+this.value).length > 0 ){
+        $('.tabs-nav>.tab-'+this.value).show().addClass('tab-active');
+        $('.tabs-stage>#tab-'+this.value).show();
+      }else {
+      	$('.tabs-nav>.tab-detail').show().addClass('tab-active');
+      	$('.tabs-stage>#tab-detail').show();
+      }
+      $('.tabs-nav>.tab-detail').show();
       $('.millesime').hide();
       let ctnClass = '.millesime-' + this.value;
       $(ctnClass).fadeIn('slow');
     }
   });
+  
+  
 });
 </script>

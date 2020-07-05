@@ -1,4 +1,33 @@
 {%- if section.settings.show_product_recommendations -%}
+
+{%- if product.metafields.related.product -%}
+{% assign related_collection = product.metafields.related.product[0] | split: '|' %}
+
+	{%- if related_collection.size > 0 -%}
+	<div class="page-width">
+      <div class="product-recommendations__inner">
+          {%- if section.settings.heading != blank -%}
+            <div class="section-header text-center">
+              <h2>{{ section.settings.heading | escape }}</h2>
+            </div>
+          {%- endif -%}
+          <ul class="grid grid--uniform grid--view-items">
+            {% for product_handle in related_collection %}
+              {% assign product = all_products[product_handle] %}
+              {% if product != blank %}
+                <li class="grid__item small--one-half medium-up--one-quarter">
+                  {% include 'product-card-grid', max_height: 250, product: product, show_vendor: section.settings.show_vendor %}
+                </li>
+              {%- endif -%}
+            {% endfor %}
+          </ul>
+      </div>
+	</div>
+  {%- endif -%}
+
+{%- endif -%}
+
+{% comment %}
   {%- if recommendations.performed -%}
     {%- if recommendations.products_count > 0 -%}
       <div class="product-recommendations__inner">
@@ -19,6 +48,7 @@
   {%- else  -%}
     <div class="page-width" data-base-url="{{ routes.product_recommendations_url }}" data-product-id="{{ product.id }}" data-section-id="{{ section.id }}" data-section-type="product-recommendations"></div>
   {%- endif -%}
+{% endcomment %}
 {%- endif -%}
 
 {% schema %}

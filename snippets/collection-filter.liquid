@@ -1,9 +1,3 @@
-
-{% if collection.products.size > 0 %}
-  
-{% endif %}
-
-
 {% if section.settings.tags_enable %}
   {% unless collection.all_tags.size == 0 %}
 
@@ -27,16 +21,15 @@
 	<div class="collection-filtre-col">
       <h5>{{ 'collections.filters.title_tags' | t }}</h5>
 
-
       {% if has_millesime == '1' %}
         <div class="collection-filtre-wrapper">
           <label class="collection-filtre-label" for="filtre-millesime">{{ 'products.product.millesime' | t }}</label>
           <select class="collection-filtre" id="filtre-millesime">
             <option value="">{{ 'products.product.all_millesimes' | t }}</option>
             {% for tag in collection.all_tags %}
-            {% if tag contains "millesime-" %}
-            <option value="{{ tag | handle }}"{% if current_tags contains tag %} selected="selected"{% endif %}>{{ tag | replace: 'millesime-', '' }}</option>
-            {% endif %}
+              {% if tag contains "millesime-" %}
+              <option value="{{ tag | handle }}"{% if current_tags contains tag %} selected="selected"{% endif %}>{{ tag | replace: 'millesime-', '' }}</option>
+              {% endif %}
             {% endfor %}
           </select>
         </div>
@@ -63,13 +56,16 @@
             <option value="">{{ 'products.product.all_contenants' | t }}</option>
             {% for tag in collection.all_tags %}
               {% if tag contains "contenant-" %}
-              <option value="{{ tag | handle }}"{% if current_tags contains tag %} selected="selected"{% endif %}>{{ tag | replace: 'contenant-', '' | replace: '-', ' ' | replace: '_', '.' | capitalize }}</option>
+              	{% if shop.locale == 'en' %}
+                	<option value="{{ tag | handle }}"{% if current_tags contains tag %} selected="selected"{% endif %}>{{ tag | replace: 'contenant-', '' | replace: 'caisse-de-', 'box-of-' | replace: 'carton-de-', 'cardboard-of-' | replace: '-bouteille', '-bottle' | replace: '-', ' ' | replace: '_', '.' | capitalize }}</option>
+            	{% else %}
+                	<option value="{{ tag | handle }}"{% if current_tags contains tag %} selected="selected"{% endif %}>{{ tag | replace: 'contenant-', '' | replace: '-', ' ' | replace: '_', '.' | capitalize }}</option>
+            	{% endif %}
               {% endif %}
             {% endfor %}
           </select>
         </div>
       {% endif %}
-      
 	</div>
 
 
@@ -108,45 +104,65 @@
             // for french langage
             option = t.replace('millesime-', '');
             option = option.replace('terroir-', '');
+            let checkContenant = option;
             option = option.replace('contenant-', '');
+            // @TODO make english translation works
+            {% if shop.locale == 'en' %}
+			  option = option.replace('caisse-de-', 'box-of-');
+              option = option.replace('carton-de-', 'cardboard-of-');
+              option = option.replace('-bouteille', '-bottle');
+            {% endif %}
             
             option = KnxCollectionFilter.replaceAll(option, '-', ' ');
             option = KnxCollectionFilter.replaceAll(option, '_', '.');
             
-            // @TODO make english translation works
-            
             return option;
           };
           
-          KnxCollectionFilter.checkTagOrVendor = function (t, f, e) {
-            let vendorToTag = e.vendor ? e.vendor.toLowerCase().replace('terroir ', '') : '';
+          KnxCollectionFilter.checkTagOrVendor = function (t, combinaison, produit) {
+            let vendorToTag = produit.vendor ? produit.vendor.toLowerCase().replace('terroir ', '') : '';
             let tag = KnxCollectionFilter.tagToOption(t);
-            console.log(t, tag);
+            
+            //if (t == 'contenant-carton-de-1-bouteille-0_75l' || t == 'millesime-2019') {
+            //  console.log(t, tag, vendorToTag, combinaison.options.includes(tag), tag == vendorToTag, combinaison.options);
+            //}
             
             // check if a tag is included in product options or in vendor
-            return f.options.includes(tag) || vendorToTag && tag == vendorToTag;
+            return combinaison.options.includes(tag) || vendorToTag && tag == vendorToTag;
           };
           
-          KnxCollectionFilter.hasTag = function (t) {
+          KnxCollectionFilter.hasTag = function (tag) {
             let elementFound = 0;
-            jQuery.each(KnxCollectionFilter.products, function(i, e) {
-              if (KnxCollectionFilter.currentTags && e.variants) {
-                
-                jQuery.each(e.variants, function(j, f) {
+            jQuery.each(KnxCollectionFilter.products, function(i, produit) {
+              if (KnxCollectionFilter.currentTags && produit.variants) {
+                jQuery.each(produit.variants, function(j, combinaison) {
                   if (KnxCollectionFilter.thirdTag) {
                     // check for 3 tags
-                  	if (KnxCollectionFilter.checkTagOrVendor(t, f, e) && 
-                        KnxCollectionFilter.checkTagOrVendor(KnxCollectionFilter.firstTag, f, e) &&
-                        KnxCollectionFilter.checkTagOrVendor(KnxCollectionFilter.secondTag, f, e) &&
-                        KnxCollectionFilter.checkTagOrVendor(KnxCollectionFilter.thirdTag, f, e)) elementFound = 1;
+                  	if (KnxCollectionFilter.checkTagOrVendor(tag, combinaison, produit) && 
+                        KnxCollectionFilter.checkTagOrVendor(KnxCollectionFilter.firstTag, combinaison, produit) &&
+                        KnxCollectionFilter.checkTagOrVendor(KnxCollectionFilter.secondTag, combinaison, produit) &&
+                        KnxCollectionFilter.checkTagOrVendor(KnxCollectionFilter.thirdTag, combinaison, produit))
+                    {
+                      elementFound = 1;
+                    }
                   } else if (KnxCollectionFilter.secondTag) {
                     // check for 2 tags
-                  	if (KnxCollectionFilter.checkTagOrVendor(t, f, e) && 
-                        KnxCollectionFilter.checkTagOrVendor(KnxCollectionFilter.secondTag, f, e)) elementFound = 1;
+                  	if (KnxCollectionFilter.checkTagOrVendor(tag, combinaison, produit) && 
+                        KnxCollectionFilter.checkTagOrVendor(KnxCollectionFilter.firstTag, combinaison, produit) && 
+                        KnxCollectionFilter.checkTagOrVendor(KnxCollectionFilter.secondTag, combinaison, produit))
+                    {
+                      elementFound = 1;
+                    }
                   } else if (KnxCollectionFilter.firstTag) {
                     // check for 1 tag
-                  	if (KnxCollectionFilter.checkTagOrVendor(t, f, e) && 
-                        KnxCollectionFilter.checkTagOrVendor(KnxCollectionFilter.firstTag, f, e)) elementFound = 1;
+                  	if (KnxCollectionFilter.checkTagOrVendor(tag, combinaison, produit) && 
+                        KnxCollectionFilter.checkTagOrVendor(KnxCollectionFilter.firstTag, combinaison, produit))
+                    {
+                      //console.log('-------------------------', tag, KnxCollectionFilter.firstTag);
+                      elementFound = 1;
+                    } else {
+                      //console.log('--------', tag, KnxCollectionFilter.firstTag);
+                    }
                   }                  
                 });
                 
@@ -187,17 +203,22 @@
                 newTags.push(jQuery(this).val());
               }
             });
+            
             if (newTags.length) {
               let query = newTags.join('+');
               window.location.href = jQuery('{{ 'tag' | link_to_tag: 'tag' }}').attr('href').replace('/' + 'tag', '/' + query);
             }
             else {
+              let localLang = '';
+              {% if shop.locale != 'fr' %}
+                  localLang = '/{{shop.locale}}';
+              {% endif %}
               {% if collection.handle %}
-              window.location.href = '/collections/{{ collection.handle }}';
+              window.location.href = localLang + '/collections/{{ collection.handle }}';
               {% elsif collection.products.first.type == collection.title %}
-              window.location.href = '{{ collection.title | url_for_type }}';
+              window.location.href = localLang + '{{ collection.title | url_for_type }}';
               {% elsif collection.products.first.vendor == collection.title %}
-              window.location.href = '{{ collection.title | url_for_vendor }}';
+              window.location.href = localLang + '{{ collection.title | url_for_vendor }}';
               {% endif %}
             }
           });

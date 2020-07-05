@@ -27,6 +27,7 @@
 
 {% assign current_variant = product.selected_or_first_available_variant %}
 
+{%- capture avada_seo_product -%}
 <script type="application/ld+json">
 {
   "@context": "http://schema.org/",
@@ -63,3 +64,5 @@
   ]
 }
 </script>
+{%- endcapture -%}
+

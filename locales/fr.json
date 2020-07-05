@@ -11,7 +11,9 @@
       "refresh_page": "Le choix d'une sélection entraîne l'actualisation d'une page entière.",
       "selection_help": "Appuyez sur la touche espace puis sur les touches fléchées pour faire une sélection.",
       "unit_price_separator": "par",
-      "error": "Erreur"
+      "error": "Erreur",
+      "read_more": "+ En savoir plus",
+      "read_less": "- En savoir moins"
     },
     "meta": {
       "tags": "Balises \"{{ tags }}\"",
@@ -89,7 +91,8 @@
       "dropdown_label": "Devise"
     },
     "language": {
-      "dropdown_label": "Langue"
+      "dropdown_label": "Langue",
+      "agency_html": "Site developed by <a href=\"https:\/\/www.kernix.com\" target=\"_blank\">Kernix<\/a>"
     }
   },
   "sections": {
@@ -184,7 +187,9 @@
       "regular_total": "Total avant réduction",
       "remove": "Supprimer {{ product }}",
       "total": "Total",
-      "update": "Mettre à jour"
+      "update": "Mettre à jour",
+      "legal_18_html": "En cochant cette case, je reconnais avoir pris connaissance des <a href=\"\/policies\/terms-of-sale\">conditions générales de vente<\/a> et les accepte. Je déclare avoir 18 ans révolus à la date de cette commande.",
+      "legal_18": "Vous devez accepter les conditions générales de vente et certifier que vous avez plus de 18 ans pour pouvoir poursuivre votre commande."
     },
     "popup": {
       "added_to_cart": "Ajouté au panier à l'instant",
@@ -221,13 +226,17 @@
   },
   "contact": {
     "form": {
-      "name": "Nom",
+      "name": "Nom - Prénom",
       "email": "E-mail",
-      "phone": "Numéro de téléphone",
-      "message": "Message",
+      "phone": "Numéro de téléphone mobile",
+      "message": "Message (merci d'indiquer votre numéro de commande et adresse postale)",
       "submit": "Envoyer",
       "post_success": "Merci pour votre message. Nous vous répondrons dès que possible.",
-      "error_heading": "Merci de bien vouloir ajuster les éléments suivants :"
+      "error_heading": "Merci de bien vouloir ajuster les éléments suivants :",
+      "legal_1": "En cochant cette case et en soumettant ce formulaire, j'accepte que mes données personnelles soient utilisées pour me recontacter dans le cadre de ma demande indiquée dans ce formulaire. Aucun autre traitement ne sera effectué avec mes informations.",
+      "legal_2": "Pour connaitre et exercer vos droits, notamment de retrait de votre consentement à l'utilisation de données collectés par ce formulaire, veuillez consulter notre ",
+      "legal_3_html": "<a style=\"text-decoration:underline;\" href=\"\/policies\/privacy-policy\" target=\"_blank\">Politique de confidentialité<\/a>",
+      "legal_4": "Vous devez accepter les conditions générales de vente pour pouvoir passer commande."
     }
   },
   "customer": {
@@ -397,8 +406,30 @@
       "all_terroirs": "Tous les terroirs",
       "contenant": "Contenant",
       "all_contenants": "Tous les contenants",
-      "for_a_bottle_of": "Pour une bouteille de",
-      "details": "Fiche détaillée"
+      "for_a_bottle_of": "la bouteille",
+      "details": "Fiche détaillée",
+      "reviews": {
+        "headline": "Vos avis sur ce vin",
+        "share_with_us": "Nous faire part de votre avis",
+        "no_review": "Pas encore d'avis pour ce vin.",
+        "write_review": "Rédiger un avis",
+        "name": "Nom",
+        "name_placeholder": "Saisir votre nom",
+        "title": "Titre de l'avis",
+        "title_placeholder": "Ajouter un titre à votre commentaire",
+        "body": "Contenu",
+        "body_placeholder": "Ecrivez votre commentaire ici"
+      },
+      "reassurance": {
+        "title_1": "Livraison offerte",
+        "content_1_html": "A partir de 390 € d'achat<br\/>en France métropolitaine",
+        "title_2": "Conseils personnalisés",
+        "content_2_html": "Contactez-nous au <strong>+ 33 6 52 20 94 37<\/strong><br\/>du lundi au vendredi",
+        "title_3": "Paiement sécurisé",
+        "content_3_html": "Nous utilisons le cryptage SSL<br\/>pour des <strong>paiements en toute sécurité",
+        "title_4": "Des vins d'exception",
+        "content_4_html": "Des <strong>grands vins<\/strong><br\/>sélectionnés par les meilleurs critiques"
+      }
     }
   },
   "gift_cards": {
@@ -424,6 +455,15 @@
     "checkout": {
       "field_errors": {
         "email_invalid": "L'email est invalide"
+      },
+      "delivery_options": {
+        "ship": "Expédier"
+      },
+      "shop_policies": {
+        "privacy_policy": "Politique de confidentialité"
+      },
+      "review": {
+        "review_notice_html": "En validant votre paiement, vous confirmez définitivement votre commande et acceptez l’intégralité de nos %{terms_of_sale}. Vous déclarez et vous engager à avoir 18 ans révolus à la date de cette commande."
       }
     }
   }
