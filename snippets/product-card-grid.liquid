@@ -7,7 +7,93 @@
 
     Usage:
     {% include 'product-card-grid', max_height: max_height, product: product, show_vendor: section.settings.show_vendor %}
+
+
+{%- assign variant_id = '' -%}
+{%- assign final_current_tags = '' -%}
+
+{% if current_tags %}
+  	
+    {%- assign current_tag_wihtout_terroir = '' -%}
+  	
+  	{% capture current_tag_wihtout_terroir %}{% for tag in current_tags %}{% if tag contains "terroir-" %}{% else %}{{tag}}{% if forloop.last != true %}|||{% endif %}{% endif %}{% endfor %}{% endcapture %}
+    
+    {%- assign final_current_tags = current_tag_wihtout_terroir | split: '|||' -%}
+  	
+  	{% for variant in product.variants %}
+      {%- assign tag_to_option_one = final_current_tags[0] | replace: 'millesime-', '' | replace: 'contenant-', '' | replace: '-', ' ' | replace: '_', '.' -%}  
+  	  {% if final_current_tags[0] and final_current_tags[1] %}
+      {%- assign tag_to_option_two = final_current_tags[1] | replace: 'millesime-', '' | replace: 'contenant-', '' | replace: '-', ' ' | replace: '_', '.' -%}
+        {% if variant.options contains tag_to_option_one and variant.options contains tag_to_option_two %}
+          {%- assign variant_id = variant.id -%}
+          {% break %}
+        {% endif %}
+      {% else %}
+        {% if variant.options contains tag_to_option_one %}
+          {%- assign variant_id = variant.id -%}
+          {% break %}
+        {% endif %}
+      {% endif %}
+    {% endfor %}
+{% endif %}
 {% endcomment %}
+
+{% if final_current_tags == '' or template.name != "collection" or current_tags != '' and final_current_tags.size > 0 and variant_id != '' %}
+<div class="grid-view-item{% unless product.available %} grid-view-item--sold-out{% endunless %} product-card">
+  {% if variant_id != '' %}  	
+  	<a class="grid-view-item__link grid-view-item__image-container full-width-link" href="{{ product.url | within: collection }}?variant={{ variant_id }}">
+      <span class="visually-hidden">{{ product.title }}</span>
+    </a>
+  {% else %}
+  	<a class="grid-view-item__link grid-view-item__image-container full-width-link" href="{{ product.url | within: collection }}">
+      <span class="visually-hidden">{{ product.title }}</span>
+    </a>
+  {% endif %}
+
+  {% capture img_id %}ProductCardImage-{{ section.id }}-{{ product.id }}{% endcapture %}
+  {% capture wrapper_id %}ProductCardImageWrapper-{{ section.id }}-{{ product.id }}{% endcapture %}
+  {%- assign preview_image = product.featured_media.preview_image -%}
+  {%- assign img_url = preview_image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
+
+  {% unless preview_image == blank %}
+    {% include 'image-style', image: preview_image, height: max_height, wrapper_id: wrapper_id, img_id: img_id %}
+  {% endunless %}
+
+  <div class="product-card__image-with-placeholder-wrapper" data-image-with-placeholder-wrapper>
+    <div id="{{ wrapper_id }}" class="grid-view-item__image-wrapper product-card__image-wrapper js">
+      <div style="padding-top:{% unless preview_image == blank %}{{ 1 | divided_by: preview_image.aspect_ratio | times: 100 }}%{% else %}100%{% endunless %};">
+       {% comment %}<div style="padding-top:{{ max_height }}px;">{% endcomment %}
+        <img id="{{ img_id }}"
+              class="grid-view-item__image lazyload"
+              alt="{{ preview_image.alt }}"
+              data-src="{{ img_url }}"
+              data-widths="[180, 360, 540, 720, 900, 1080, 1296, 1512, 1728, 2048]"
+              data-aspectratio="{{ preview_image.aspect_ratio }}"
+              data-sizes="auto"
+              data-image>
+      </div>
+    </div>
+    <div class="placeholder-background placeholder-background--animation" data-image-placeholder></div>
+  </div>
+
+  <noscript>
+    {% capture image_size %}{{ max_height }}x{{ max_height }}{% endcapture %}
+    <img class="grid-view-item__image" src="{{ preview_image | img_url: image_size, scale: 2 }}" alt="{{ preview_image.alt }}" style="max-width: {{ max_height | times: preview_image.aspect_ratio }}px;">
+  </noscript>
+
+  <div class="h4 grid-view-item__title product-card__title" aria-hidden="true">{{ product.title }}{% comment %}
+  {% for variant in product.variants %}
+    {{ variant.options | json }}
+  {% endfor %}{% endcomment %}
+  </div>
+
+  {% include 'product-price-listing', product: product, show_vendor: show_vendor %}
+
+</div>
+{% else %}
+  {% comment %}Terroir only case cause triple OR seems to meesup{% endcomment %}
+  {% if current_tags.size == 1 and final_current_tags.size == 0 and variant_id == '' %}
+	
 <div class="grid-view-item{% unless product.available %} grid-view-item--sold-out{% endunless %} product-card">
   <a class="grid-view-item__link grid-view-item__image-container full-width-link" href="{{ product.url | within: collection }}">
     <span class="visually-hidden">{{ product.title }}</span>
@@ -25,6 +111,7 @@
   <div class="product-card__image-with-placeholder-wrapper" data-image-with-placeholder-wrapper>
     <div id="{{ wrapper_id }}" class="grid-view-item__image-wrapper product-card__image-wrapper js">
       <div style="padding-top:{% unless preview_image == blank %}{{ 1 | divided_by: preview_image.aspect_ratio | times: 100 }}%{% else %}100%{% endunless %};">
+       {% comment %}<div style="padding-top:{{ max_height }}px;">{% endcomment %}
         <img id="{{ img_id }}"
               class="grid-view-item__image lazyload"
               alt="{{ preview_image.alt }}"
@@ -48,3 +135,7 @@
   {% include 'product-price-listing', product: product, show_vendor: show_vendor %}
 
 </div>
+
+
+  {% endif %}
+{% endif %}

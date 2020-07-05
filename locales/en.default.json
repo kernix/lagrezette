@@ -11,7 +11,9 @@
       "refresh_page": "Choosing a selection results in a full page refresh.",
       "selection_help": "Press the space key then arrow keys to make a selection.",
       "unit_price_separator": "per",
-      "error": "Error"
+      "error": "Error",
+      "read_more": "+ Read more",
+      "read_less": "- Read less"
     },
     "meta": {
       "tags": "Tagged \"{{ tags }}\"",
@@ -89,7 +91,8 @@
       "dropdown_label": "Currency"
     },
     "language": {
-      "dropdown_label": "Language"
+      "dropdown_label": "Language",
+      "agency_html": "Created by <a href=\"https:\/\/www.kernix.com\" target=\"_blank\">Kernix<\/a>"
     }
   },
   "sections": {
@@ -184,7 +187,9 @@
       "regular_total": "Regular total",
       "remove": "Remove {{ product }}",
       "total": "Total",
-      "update": "Update"
+      "update": "Update",
+      "legal_18_html": "By checking this option, i fully understand <a href=\"\/en\/policies\/terms-of-sale\">lagrezette sales conditions<\/a> and i agree. I declare beeing over 18 years old.",
+      "legal_18": "You must accept our sales conditions and certify beeing over 18 years old be able to go on your checkout."
     },
     "popup": {
       "added_to_cart": "Just added to your cart",
@@ -221,13 +226,17 @@
   },
   "contact": {
     "form": {
-      "name": "Name",
+      "name": "Last name - First name",
       "email": "Email",
-      "phone": "Phone Number",
-      "message": "Message",
+      "phone": "Cell phone",
+      "message": "Message (please add your purchase number and postal address)",
       "submit": "Send",
       "post_success": "Thanks for contacting us. We'll get back to you as soon as possible.",
-      "error_heading": "Please adjust the following:"
+      "error_heading": "Please adjust the following:",
+      "legal_1": "By checking this box and submitting this form, I agree that my personal data will be used to contact me in the context of my request indicated in this form. No other processing will be carried out with my information.",
+      "legal_2": "To know and exercise your rights, in particular to withdraw your consent to the use of data collected by this form, please consult our",
+      "legal_3_html": "<a style=\"text-decoration:underline;\" href=\"\/en\/policies\/privacy-policy\" target=\"_blank\">Privacy policy<\/a>",
+      "legal_4": "You must agree with our general terms agreement before making orders"
     }
   },
   "customer": {
@@ -390,7 +399,37 @@
       "unit_price_label": "Unit price",
       "view_cart": "View cart",
       "view_in_space": "View in your space",
-      "view_in_space_label": "View in your space, loads item in augmented reality window"
+      "view_in_space_label": "View in your space, loads item in augmented reality window",
+      "millesime": "Vintage",
+      "all_millesimes": "All vintage",
+      "terroir": "Soil",
+      "all_terroirs": "All soil",
+      "contenant": "Conditioning",
+      "all_contenants": "All conditioning",
+      "for_a_bottle_of": "a bottle",
+      "details": "More informations",
+      "reviews": {
+        "headline": "Your reviews about this wine",
+        "share_with_us": "Share your review with us",
+        "no_review": "No review yet.",
+        "write_review": "Write a review",
+        "name": "Name",
+        "name_placeholder": "Your name",
+        "title": "Review title",
+        "title_placeholder": "Add a title to your review",
+        "body": "Content",
+        "body_placeholder": "Write here your review"
+      },
+      "reassurance": {
+        "title_1": "Free delivery",
+        "content_1_html": "From 390 EUR. of purchase<br\/>in mainland France",
+        "title_2": "Personal advice",
+        "content_2_html": "Contact Mickaël at <strong>+ 33 6 52 20 94 37<\/strong><br\/>from Monday to Friday",
+        "title_3": "Secure payment",
+        "content_3_html": "We use SSL encryption<br\/> for <strong>secure payments",
+        "title_4": "Exceptional winces",
+        "content_4_html": "<strong>Recognized and rewarded wines<\/strong><br\/>by the best reviews"
+      }
     }
   },
   "gift_cards": {
@@ -407,6 +446,13 @@
       "remaining_html": "{{ balance }} left",
       "add_to_apple_wallet": "Add to Apple Wallet",
       "qr_image_alt": "QR code — scan to redeem gift card"
+    }
+  },
+  "shopify": {
+    "checkout": {
+      "review": {
+        "review_notice_html": "By completing your order, you agree to our %{terms_of_sale}. You certify you are over 18 years old."
+      }
     }
   }
 }

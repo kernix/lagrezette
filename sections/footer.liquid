@@ -140,6 +140,10 @@
 {%- endcapture -%}
 
 <footer class="site-footer" role="contentinfo" data-section-id="{{ section.id }}" data-section-type="footer-section">
+  
+  
+  {%- assign socials = "Facebook Twitter Pinterest Instagram Tumblr Snapchat YouTube Vimeo" | split: ' ' -%}
+
   <!-- custom footer -->
   <div class="page-width">
     <div class="col-50">
@@ -303,8 +307,15 @@
           {%- endif -%}
         </div>
         <div class="site-footer-newsletter__one-half">
+          {% if section.settings.textmajorite != blank %}
+            <div class=" text-center text-sm-right">
+              <span>
+                {{ section.settings.textmajorite }}
+              </span>
+            </div>
+          {% endif %}
           {%- if social_icons -%}
-          <ul class="list--inline site-footer__social-icons social-icons site-footer__icon-list">
+          <ul class="list--inline site-footer__social-icons social-icons site-footer__icon-list text-center text-sm-right">
             {%- for social in socials -%}
               {%- assign social_link = social | prepend: 'social_' | append: '_link' | downcase -%}
               {%- assign icon_link = social | prepend: 'icon-' | downcase -%}
@@ -337,41 +348,38 @@
     <div class="credits">
       <div>
         <div class="text-center">
-          <small class="site-footer__copyright-content">&copy; {{ 'now' | date: "%Y" }}, {{ shop.name }} | Site Développé par <a href="https://www.kernix.com" target="_blank">Kernix</a></small>
+          <small class="site-footer__copyright-content">&copy; {{ 'now' | date: "%Y" }}, {{ shop.name }} | {{ 'general.language.agency_html' | t }}</small>
       	</div>
       </div>
-      {% if section.settings.textmajorite != blank %}
-        <div class="text-center">
-          <small>
-            {{ section.settings.textmajorite }}
-          </small>
-      	</div>
-      {% endif %}
     </div>
   </div>
 </footer>
 <style>
   .site-footer {
-    padding: 40px 55px 40px !important;
+    padding: 40px 25px 40px !important;
   }
-  @media only screen and (min-device-width: 480px){
+  @media only screen and (min-width: 480px){
     
     .site-footer__content {
        height: auto!important;
     }
   }
   
-  .footer-logo { display:block; max-width: 130px; margin:0 auto 0px; }
-  @media only screen and (min-device-width: 750px){ 
+  .footer-logo { display:block; max-width: 130px; margin:0 auto 20px; }
+  @media only screen and (min-width: 750px){ 
     .footer-logo { margin: 0 0 -20px; }
   }
   
   .site-footer .social-icons { margin-top: 25px; }
-  @media only screen and (min-device-width: 750px){
-    .social-icons { margin-top: 0; }
+  @media only screen and (min-width: 750px){
+    .site-footer .social-icons { margin-top: 0; }
   }
+  .site-footer__social-icons { margin-top: 0; }
   .site-footer .site-footer__item--one-quarter {  }
-  .site-footer hr { margin: 25px 0; border-color: black; }
+  .site-footer hr { margin: 5px 0 25px; border-color: black; }
+  @media only screen and (min-width: 750px){
+  	.site-footer hr { margin: 25px 0; }
+  }
   .text-center { text-align:center; }
 
   

@@ -33,7 +33,11 @@
       &ndash; {{ shop.name }}
     {%- endunless -%}
   {%- endcapture -%}
-  <title>{{ seo_title | strip }}</title>
+  
+<!-- Added by AVADA SEO Suite -->
+{% include 'avada-seo' %}
+<!-- /Added by AVADA SEO Suite -->
+<title>{{ seo_title | strip }}</title>
 
   {%- if page_description -%}
     <meta name="description" content="{{ page_description | escape }}">
@@ -112,35 +116,6 @@
   {{ content_for_header }}
   {% include 'scapp-customerinfo' %} 
 
-  <script type="text/javascript" src="/tarteaucitron/tarteaucitron.js"></script>
-
-  <script type="text/javascript">
-    tarteaucitron.init({
-      "privacyUrl": "", /* Privacy policy url */
-
-      "hashtag": "#tarteaucitron", /* Open the panel with this hashtag */
-      "cookieName": "tarteaucitron", /* Cookie name */
-
-      "orientation": "middle", /* Banner position (top - bottom) */
-      "showAlertSmall": true, /* Show the small banner on bottom right */
-      "cookieslist": true, /* Show the cookie list */
-
-      "adblocker": false, /* Show a Warning if an adblocker is detected */
-      "AcceptAllCta" : true, /* Show the accept all button when highPrivacy on */
-      "highPrivacy": true, /* Disable auto consent */
-      "handleBrowserDNTRequest": false, /* If Do Not Track == 1, disallow all */
-
-      "removeCredit": false, /* Remove credit link */
-      "moreInfoLink": true, /* Show more info link */
-      "useExternalCss": false, /* If false, the tarteaucitron.css file will be loaded */
-
-      //"cookieDomain": ".my-multisite-domaine.fr", /* Shared cookie for multisite */
-
-      "readmoreLink": "/cookiespolicy", /* Change the default readmore link */
-
-      "mandatory": false, /* Show a message about mandatory cookies */
-    });
-  </script>
 </head>
 
 <body class="template-{{ request.page_type | handle }}">
@@ -181,30 +156,30 @@ padding:5px 15px;
 <li class="col-item">
 <div class="text-center">
 <img src="https://cdn.shopify.com/s/files/1/0402/9277/8135/files/livraison-gratuite.png?v=1592254922" style="height: 80px;">
-<h3 class="h4">Livraison offerte</h3>
+<h3 class="h4">{{ 'products.product.reassurance.title_1' | t }}</h3>
 </div>
-<p><center>A partir de 390 € d'achat<br/>en France métropolitaine</center></p>
+<p><center>{{ 'products.product.reassurance.content_1_html' | t }}</center></p>
 </li>
 <li class="col-item">
 <div class="text-center">
 <img class="img90" src="https://cdn.shopify.com/s/files/1/0402/9277/8135/files/service-client.png?v=1592254922" style="height: 80px;">
-<h3 class="h4">Conseils personnalisés</h3>
+<h3 class="h4">{{ 'products.product.reassurance.title_2' | t }}</h3>
 </div>
-<p><center>Contactez-nous au <strong>+ 33 6 52 20 94 37</strong><br/>du lundi au vendredi</center></p>
+<p><center>{{ 'products.product.reassurance.content_2_html' | t }}</center></p>
 </li>
 <li class="col-item">
 <div class="text-center">
 <img class="img90" src="https://cdn.shopify.com/s/files/1/0402/9277/8135/files/paiement-securise.png?v=1592254922" style="height: 80px;">
-<h3 class="h4">Paiement sécurisé</h3>
+<h3 class="h4">{{ 'products.product.reassurance.title_3' | t }}</h3>
 </div>
-<p><center>Nous utilisons le cryptage SSL<br/>pour des <strong>paiements en toute sécurité</strong></center></p>
+<p><center>{{ 'products.product.reassurance.content_3_html' | t }}</strong></center></p>
 </li>
   <li class="col-item">
 <div class="text-center">
 <img class="img90" src="https://cdn.shopify.com/s/files/1/0402/9277/8135/files/grands-crus.png?v=1592254922" style="height: 80px;">
-<h3 class="h4">Des crus d'exception</h3>
+<h3 class="h4">{{ 'products.product.reassurance.title_4' | t }}</h3>
 </div>
-<p></p><center>Des <strong>grands vins</strong><br/>sélectionnés par les meilleurs critiques</center><p></p>
+<p><center>{{ 'products.product.reassurance.content_4_html' | t }}</center></p>
 </li>
 </ul>
 </div>
@@ -230,5 +205,38 @@ padding:5px 15px;
 {% include "bc_banner" %}
 {% include 'social-login' %}{{ 'ndnapps-sociallogin.css' | asset_url | stylesheet_tag }}
 {% if shop.customer_accounts_enabled %}{% unless customer  %}{{ 'ndnapps-sociallogin-script.js' | asset_url | script_tag }}{% endunless %}{% endif %}
+
+<script>
+  var dgReadMoreText1 = "{{ 'general.accessibility.read_more' | t }}";
+  var dgReadMoreText2 = "{{ 'general.accessibility.read_less' | t }}";
+
+  function dgReadMore() {
+    var dots = document.getElementById("dg-rm-dots");
+    var moreText = document.getElementById("dg-rm-more");
+    var btnText = document.getElementById("dg-rm-btn");
+
+    if (dots.style.display === "none") {
+      dots.style.display = "inline";
+      btnText.innerHTML = dgReadMoreText1;
+      moreText.style.display = "none";
+    } else {
+      dots.style.display = "none";
+      btnText.innerHTML = dgReadMoreText2;
+      moreText.style.display = "inline";
+    }
+  }
+
+   $(document).ready(function() {
+      $('body').on('click', '[name="checkout"], [name="goto_pp"], [name="goto_gc"]', function() {
+        if ($('#agree').is(':checked')) {
+          $(this).submit();
+        }
+        else {
+          alert("{{ 'cart.label.legal_18' | t }}");
+          return false;
+        }
+      });          
+  });
+</script>
 </body>
 </html>

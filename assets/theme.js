@@ -7559,34 +7559,5 @@ function onYouTubeIframeAPIReady() {
 
 $(theme.init);
 
-var dgReadMoreText1 = "+ En savoir plus";
-var dgReadMoreText2 = "- En savoir moins";
 
-function dgReadMore() {
-var dots = document.getElementById("dg-rm-dots");
-var moreText = document.getElementById("dg-rm-more");
-var btnText = document.getElementById("dg-rm-btn");
-
-if (dots.style.display === "none") {
-dots.style.display = "inline";
-btnText.innerHTML = dgReadMoreText1;
-moreText.style.display = "none";
-} else {
-dots.style.display = "none";
-btnText.innerHTML = dgReadMoreText2;
-moreText.style.display = "inline";
-}
-}
-
- $(document).ready(function() {
-    $('body').on('click', '[name="checkout"], [name="goto_pp"], [name="goto_gc"]', function() {
-      if ($('#agree').is(':checked')) {
-        $(this).submit();
-      }
-      else {
-        alert("Vous devez accepter les conditions générales de vente et certifier que vous avez plus de 18 ans pour pouvoir poursuivre votre commande.");
-        return false;
-      }
-    });
-  });
 

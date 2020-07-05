@@ -273,10 +273,10 @@
                   class="cart__submit btn btn--secondary"
                   value="{{ 'cart.general.update' | t }}">
                 {%- endunless -%}
-                <p style="float: none; text-align: right; clear: both; margin: 10px 0;">
+                <p class="age-input" style="float: none; clear: both; margin: 10px 0;">
   <input style="float:none; vertical-align: middle;" type="checkbox" id="agree" />
   <label style="display:inline; float:none" for="agree">
-    En cochant cette cas, je reconnais avoir pris connaissance des <a href="/policies/terms-of-sale">conditions générales de vente</a> et les accepte. Je reconnais être âgé de plus de 18 ans.
+    {{ 'cart.label.legal_18_html' | t }}
   </label>
 </p>
                 <input type="submit" name="checkout"
@@ -315,6 +315,12 @@
   </div>
 </div>
 
+<style>
+  .age-input { text-align:left;}
+  @media only screen and (min-width: 840px){
+    .age-input { text-align:right;}
+  }
+</style>
 
 
 {% schema %}

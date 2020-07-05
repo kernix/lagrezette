@@ -26,6 +26,7 @@
 
     {% if section.settings.show_collection_image and collection.image %}
       <div class="collection-hero">
+
         <div class="collection-hero__image ratio-container lazyload js"
              data-bgset="{% include 'bgset', image: collection.image %}"
              data-sizes="auto"
@@ -71,7 +72,7 @@
     {% endif %}
 
     {% if is_filter_by_available or section.settings.sort_enable %}
-      <div class="filters-toolbar-wrapper{% if is_filter_by_available %} filters-toolbar--has-filter{% endif %}">
+      <!--<div class="filters-toolbar-wrapper{% if is_filter_by_available %} filters-toolbar--has-filter{% endif %}" style="display:none !important;">
         <div class="page-width">
           <div class="filters-toolbar">
             <div class="filters-toolbar__item-wrapper">
@@ -129,20 +130,186 @@
             </div>
           </div>
         </div>
-      </div>
+      </div>-->
     
     {% endif %}
-    
+    {% if section.settings.tags_enable %}
+      {% unless collection.all_tags.size == 0 %}
+
+      {% assign show_millesime = '0' %}
+      {% assign show_terroir = '0' %}
+      {% assign show_container = '0' %}
+
+      {% for tag in collection.all_tags %}
+        {% if tag contains "millesime-" %}
+          {% assign show_millesime = '1' %}
+        {% endif %}
+        {% if tag contains "terroir-" %}
+          {% assign show_terroir = '1' %}
+        {% endif %}
+        {% if tag contains "contenant-" %}
+          {% assign show_container = '1' %}
+        {% endif %}
+      {% endfor %}
+
+      {% if show_millesime == '1' or show_container == '1' or show_terroir  == '1' %}
+    	
+      {% else %}
+        <div class="filters-toolbar-wrapper{% if is_filter_by_available %} filters-toolbar--has-filter{% endif %}">
+            <div class="page-width">
+              <div class="filters-toolbar">
+                <div class="filters-toolbar__item-wrapper">
+                </div>
+                {% if is_filter_by_available or section.settings.sort_enable %}
+                  <div class="filters-toolbar__item filters-toolbar__item--count">
+                    <span class="filters-toolbar__product-count">{{ 'collections.general.items_with_count' | t: count: collection.products_count }}</span>
+                  </div>
+                {% endif %}
+              </div>
+            </div>
+        </div>
+      {% endif %}
+
+      {% endunless %}
+    {% endif %}
     
     
   </header>
 
   <div class="page-width" id="Collection">
     <div class="grid grid--uniform">
-      <div class="grid__item small--one-whole medium-up--one-quarter">
+      
+      {% if section.settings.tags_enable %}
+        {% unless collection.all_tags.size == 0 %}
+
+        {% assign show_millesime = '0' %}
+        {% assign show_terroir = '0' %}
+        {% assign show_container = '0' %}
+
+        {% for tag in collection.all_tags %}
+          {% if tag contains "millesime-" %}
+            {% assign show_millesime = '1' %}
+          {% endif %}
+          {% if tag contains "terroir-" %}
+            {% assign show_terroir = '1' %}
+          {% endif %}
+          {% if tag contains "contenant-" %}
+            {% assign show_container = '1' %}
+          {% endif %}
+        {% endfor %}
+
+        {% if show_millesime == '1' or show_container == '1' or show_terroir  == '1' %}
+          <div class="grid__item small--one-whole medium-up--one-quarter">
+        {% else %}
+          <div class="grid__item small--one-whole medium-up--one-quarter" style="display:none !important;">
+        {% endif %}
+
+        {% endunless %}
+      {% endif %} 
+        
+        {%- assign products_filter_count = 0 -%}
+        {% for product in collection.products %}
+        
+          {% comment %}Kernix Handle filter list count{% endcomment %}
+          {%- assign variant_id = '' -%}
+          {%- assign final_current_tags = '' -%}
+          {% if current_tags %}
+
+              {%- assign current_tag_wihtout_terroir = '' -%}
+
+              {% capture current_tag_wihtout_terroir %}{% for tag in current_tags %}{% if tag contains "terroir-" %}{% else %}{{tag}}{% if forloop.last != true %}|||{% endif %}{% endif %}{% endfor %}{% endcapture %}
+
+              {%- assign final_current_tags = current_tag_wihtout_terroir | split: '|||' -%}
+
+              {% for variant in product.variants %}
+        		{% if shop.locale == 'en' %}            	
+                  {%- assign tag_to_option_one = final_current_tags[0] | replace: 'millesime-', '' | replace: 'contenant-', '' | replace: 'caisse-de-', 'box-of-' | replace: 'carton-de-', 'cardboard-of-' | replace: '-bouteille', '-bottle' | replace: '-', ' ' | replace: '_', '.' -%}  
+                  {% if final_current_tags[0] and final_current_tags[1] %}
+                  {%- assign tag_to_option_two = final_current_tags[1] | replace: 'millesime-', '' | replace: 'contenant-', '' | replace: 'caisse-de-', 'box-of-' | replace: 'carton-de-', 'cardboard-of-' | replace: '-bouteille', '-bottle' | replace: '-', ' ' | replace: '_', '.' -%}
+                    {% if variant.options contains tag_to_option_one and variant.options contains tag_to_option_two %}
+                      {%- assign variant_id = variant.id -%}
+                      {% break %}
+                    {% endif %}
+                  {% else %}
+                    {% if variant.options contains tag_to_option_one %}
+                      {%- assign variant_id = variant.id -%}
+                      {% break %}
+                    {% endif %}
+                  {% endif %}
+        
+        			
+        		{% else %}
+        
+                  {%- assign tag_to_option_one = final_current_tags[0] | replace: 'millesime-', '' | replace: 'contenant-', '' | replace: '-', ' ' | replace: '_', '.' -%}  
+                  {% if final_current_tags[0] and final_current_tags[1] %}
+                  {%- assign tag_to_option_two = final_current_tags[1] | replace: 'millesime-', '' | replace: 'contenant-', '' | replace: '-', ' ' | replace: '_', '.' -%}
+                    {% if variant.options contains tag_to_option_one and variant.options contains tag_to_option_two %}
+                      {%- assign variant_id = variant.id -%}
+                      {% break %}
+                    {% endif %}
+                  {% else %}
+                    {% if variant.options contains tag_to_option_one %}
+                      {%- assign variant_id = variant.id -%}
+                      {% break %}
+                    {% endif %}
+                  {% endif %}
+        
+            	{% endif %}
+              {% endfor %}
+          {% endif %}
+        
+        
+          {% if final_current_tags == '' or current_tags != '' and final_current_tags.size > 0 and variant_id != '' %}
+          	{% assign products_filter_count = products_filter_count | plus: 1 %}
+          {% else %}
+        	{% if current_tags.size == 1 and final_current_tags.size == 0 and variant_id == '' %}
+        	  {% assign products_filter_count = products_filter_count | plus: 1 %}
+        	{% endif %}
+          {% endif %}
+        {% endfor %}
+        
+        
+        {% comment %}
+        {% if is_filter_by_available or section.settings.sort_enable %}
+          <div class="filters-toolbar__item filters-toolbar__item--count">
+            <span class="filters-toolbar__product-count">{{ 'collections.general.items_with_count' | t: count: collection.products_count }}</span>
+          </div>
+        {% endif %}
+        {% endcomment %}
+        {% if is_filter_by_available or section.settings.sort_enable %}
+          <div class="filters-toolbar__item filters-toolbar__item--count">
+            <span class="filters-toolbar__product-count">{{ 'collections.general.items_with_count' | t: count: products_filter_count }}</span>
+          </div>
+        {% endif %}
         {% include "collection-filter" %}
       </div>
-      <div class="grid__item small--one-whole medium-up--three-quarters">
+      {% if section.settings.tags_enable %}
+        {% unless collection.all_tags.size == 0 %}
+
+        {% assign show_millesime = '0' %}
+        {% assign show_terroir = '0' %}
+        {% assign show_container = '0' %}
+
+        {% for tag in collection.all_tags %}
+          {% if tag contains "millesime-" %}
+            {% assign show_millesime = '1' %}
+          {% endif %}
+          {% if tag contains "terroir-" %}
+            {% assign show_terroir = '1' %}
+          {% endif %}
+          {% if tag contains "contenant-" %}
+            {% assign show_container = '1' %}
+          {% endif %}
+        {% endfor %}
+
+        {% if show_millesime == '1' or show_container == '1' or show_terroir  == '1' %}
+          <div class="grid__item small--one-whole medium-up--three-quarters">
+        {% else %}
+          <div class="grid__item small--one-whole">
+        {% endif %}
+
+        {% endunless %}
+      {% endif %}
 
     {% if section.settings.layout == 'grid' %}
       {% case section.settings.grid %}
@@ -158,9 +325,68 @@
 
       <ul class="grid grid--uniform{% if collection.products_count > 0 %} grid--view-items{% endif %}">
         {% for product in collection.products %}
+        
+          {% comment %}Kernix Handle filter list{% endcomment %}
+          {%- assign variant_id = '' -%}
+          {%- assign final_current_tags = '' -%}
+          {% if current_tags %}
+
+              {%- assign current_tag_wihtout_terroir = '' -%}
+
+              {% capture current_tag_wihtout_terroir %}{% for tag in current_tags %}{% if tag contains "terroir-" %}{% else %}{{tag}}{% if forloop.last != true %}|||{% endif %}{% endif %}{% endfor %}{% endcapture %}
+
+              {%- assign final_current_tags = current_tag_wihtout_terroir | split: '|||' -%}
+
+              {% for variant in product.variants %}
+        
+        		{% if shop.locale == 'en' %}
+                  {%- assign tag_to_option_one = final_current_tags[0] | replace: 'millesime-', '' | replace: 'contenant-', '' | replace: 'caisse-de-', 'box-of-' | replace: 'carton-de-', 'cardboard-of-' | replace: '-bouteille', '-bottle' | replace: '-', ' ' | replace: '_', '.' -%}  
+                  {% if final_current_tags[0] and final_current_tags[1] %}
+                  {%- assign tag_to_option_two = final_current_tags[1] | replace: 'millesime-', '' | replace: 'contenant-', '' | replace: 'caisse-de-', 'box-of-' | replace: 'carton-de-', 'cardboard-of-' | replace: '-bouteille', '-bottle' | replace: '-', ' ' | replace: '_', '.' -%}
+                    {% if variant.options contains tag_to_option_one and variant.options contains tag_to_option_two %}
+                      {%- assign variant_id = variant.id -%}
+                      {% break %}
+                    {% endif %}
+                  {% else %}
+                    {% if variant.options contains tag_to_option_one %}
+                      {%- assign variant_id = variant.id -%}
+                      {% break %}
+                    {% endif %}
+                  {% endif %}
+        
+        			
+        		{% else %}
+        		
+                  {%- assign tag_to_option_one = final_current_tags[0] | replace: 'millesime-', '' | replace: 'contenant-', '' | replace: '-', ' ' | replace: '_', '.' -%}  
+                  {% if final_current_tags[0] and final_current_tags[1] %}
+                  {%- assign tag_to_option_two = final_current_tags[1] | replace: 'millesime-', '' | replace: 'contenant-', '' | replace: '-', ' ' | replace: '_', '.' -%}
+                    {% if variant.options contains tag_to_option_one and variant.options contains tag_to_option_two %}
+                      {%- assign variant_id = variant.id -%}
+                      {% break %}
+                    {% endif %}
+                  {% else %}
+                    {% if variant.options contains tag_to_option_one %}
+                      {%- assign variant_id = variant.id -%}
+                      {% break %}
+                    {% endif %}
+                  {% endif %}
+        
+        		{% endif %}
+              {% endfor %}
+          {% endif %}
+        
+        
+          {% if final_current_tags == '' or current_tags != '' and final_current_tags.size > 0 and variant_id != '' %}
           <li class="grid__item grid__item--{{section.id}} {{ grid_item_width }}">
-            {% include 'product-card-grid', max_height: max_height, product: product, show_vendor: section.settings.show_vendor %}
+            {% include 'product-card-grid', max_height: max_height, product: product, show_vendor: section.settings.show_vendor, final_current_tags: final_current_tags, variant_id: variant_id %}
           </li>
+          {% else %}
+        	{% if current_tags.size == 1 and final_current_tags.size == 0 and variant_id == '' %}
+        	  <li class="grid__item grid__item--{{section.id}} {{ grid_item_width }}">
+                {% include 'product-card-grid', max_height: max_height, product: product, show_vendor: section.settings.show_vendor, final_current_tags: final_current_tags, variant_id: variant_id %}
+              </li>
+        	{% endif %}
+          {% endif %}
         {% else %}
           {% comment %}
           Add default products to help with onboarding for collections/all only.
